@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Realtor Command Center – Concept Mockup</title>
+  <style>
+    :root {
+      /* Wedding planner palette: soft blush, cream, gold */
+      --bg: #fdf8f5;
+      --bg-alt: #fbeff5;
+      --card: #ffffff;
+      --card-alt: #f9f1f6;
+      --border: #f1d8c7;      /* soft champagne gold */
+      --accent: #e9a8b8;      /* blush rose */
+      --accent-soft: rgba(233, 168, 184, 0.18);
+      --accent-orange: #f3c08b;/* champagne */
+      --accent-blue: #a8c8dd; /* dusty blue */
+      --accent-green: #b7d6b7;/* sage */
+      --text: #553445;        /* warm berry */
+      --muted: #9b6d7f;       /* muted mauve */
+      --danger: #ff6f6f;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --radius-pill: 999px;
+      --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.6);
+      --shadow-subtle: 0 8px 24px rgba(0, 0, 0, 0.5);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, system-ui, "SF Pro Text", sans-serif;
+      background: linear-gradient(180deg, #fdf8f5 0, #fbeff5 40%, #f7e6f2 100%);
+      color: #553445;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .app-shell {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      padding: 24px;
+      gap: 16px;
+    }
+
+    header.app-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .app-title {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .app-title h1 {
+      margin: 0;
+      font-size: 24px;
+      letter-spacing: 0.03em;
+    }
+
+    .app-title span {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .app-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .streak-pill {
+      padding: 6px 12px;
+      border-radius: var(--radius-pill);
+      background: rgba(233, 168, 184, 0.12);
+      border: 1px solid rgba(233, 168, 184, 0.7);
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .user-chip {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(241, 216, 199, 0.9);
+      color: #7b4d5f;
+    }
+
+    .avatar {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #f3c08b, #e9a8b8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .layout {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1.1fr 1.3fr 0.9fr;
+      gap: 16px;
+      min-height: 0;
+    }
+
+    .column {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      min-height: 0;
+    }
+
+    .column h2 {
+      margin: 0;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+    }
+
+    .card {
+      background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.98), rgba(249, 241, 246, 0.96));
+      border-radius: 18px;
+      border: 1px solid rgba(241, 216, 199, 0.9);
+      box-shadow: 0 18px 45px rgba(181, 139, 139, 0.18);
+      padding: 18px 18px;
+    }
+
+    .card.hero {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card.hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top left, rgba(233, 168, 184, 0.35), transparent 55%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .hero-sub {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border-radius: var(--radius-pill);
+      border: none;
+      cursor: default;
+      background: linear-gradient(135deg, var(--accent), #ffb056);
+      color: #05060a;
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+    }
+
+    .btn-primary span.icon {
+      font-size: 14px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .tasks {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .task-card {
+      background: var(--card);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .task-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .task-title {
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .task-meta {
+      font-size: 11px;
+      color: var(--muted);
+      display: flex;
+      gap: 8px;
+    }
+
+    .chip {
+      border-radius: var(--radius-pill);
+      padding: 2px 8px;
+      font-size: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--muted);
+    }
+
+    .chip.call { color: var(--accent-orange); border-color: rgba(255, 176, 86, 0.6); }
+    .chip.note { color: var(--accent-blue); border-color: rgba(111, 186, 255, 0.6); }
+    .chip.admin { color: #d0d4f5; border-color: rgba(208, 212, 245, 0.4); }
+
+    .progress-bar {
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .progress-track {
+      display: flex;
+      gap: 3px;
+    }
+
+    .progress-segment {
+      flex: 1;
+      height: 6px;
+      border-radius: 999px;
+      background: #181b2a;
+      overflow: hidden;
+    }
+
+    .progress-segment.filled {
+      background: linear-gradient(90deg, var(--accent), #ffb056);
+    }
+
+    .episodes-column .card {
+      padding: 10px 12px 12px;
+    }
+
+    .stage-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .stage-name { color: #d0d4ff; }
+
+    .tiles-row {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 2px;
+    }
+
+    .tile {
+      min-width: 150px;
+      background: var(--card-alt);
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 8px 9px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      box-shadow: var(--shadow-subtle);
+    }
+
+    .tile-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+    }
+
+    .tile-name { font-weight: 500; }
+
+    .tile-tag {
+      font-size: 10px;
+      color: var(--muted);
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 2px 6px;
+    }
+
+    .tile-detail {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .tile-status {
+      font-size: 10px;
+      color: var(--accent-green);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 2px;
+    }
+
+    .wins-card ul,
+    .metrics-list ul {
+      list-style: none;
+      padding: 0;
+      margin: 6px 0 0;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .wins-card li::before,
+    .metrics-list li::before {
+      content: "•";
+      color: var(--accent);
+      display: inline-block;
+      width: 10px;
+      margin-left: 0;
+    }
+
+    .note {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+      font-size: 11px;
+    }
+
+    .badge {
+      padding: 4px 8px;
+      border-radius: var(--radius-pill);
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    @media (max-width: 1100px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="app-header">
+      <div class="app-title">
+        <h1>Realtor Command Center</h1>
+        <span>Today’s Script · Episodes · At‑A‑Boy Wall</span>
+      </div>
+      <div class="app-right">
+        <div class="streak-pill">
+          <span>On a roll · 5 days</span>
+        </div>
+        <div class="user-chip">
+          <div class="avatar">JR</div>
+          <span>Jordan Realtor</span>
+        </div>
+        <div class="user-chip">
+          <img src="../us-payments/Real Housewives of Beverly Hills.webp" alt="Real Housewives of Beverly Hills vibe" style="width:28px;height:28px;border-radius:50%;object-fit:cover;border:1px solid rgba(243,212,162,0.75);" />
+          <span style="font-size:11px;">Beverly Hills energy</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="layout">
+      <!-- Left: Today’s Script -->
+      <div class="column">
+        <h2>Today’s Script</h2>
+        <div class="card hero">
+          <div class="hero-inner">
+            <div class="hero-title">Today’s Script</div>
+            <div class="hero-sub">You’ve got 3 hot leads, 2 deals in inspection, and 1 client waiting on an update. Clear this lane and you’ve won the day.</div>
+            <button class="btn-primary">
+              <span class="icon">▶</span>
+              <span>Start my script</span>
+            </button>
+            <div class="pill" style="margin-top: 10px;">
+              <span>One action at a time. No chaos.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="tasks">
+          <div class="task-card">
+            <div class="task-header">
+              <div class="task-title">
+                <span>🔥</span>
+                <span>Call Jason about inspection report</span>
+              </div>
+              <span class="chip call">Call · ~7 min</span>
+            </div>
+            <div class="task-meta">
+              <span>Keeps Jason from wandering to another agent</span>
+            </div>
+          </div>
+
+          <div class="task-card">
+            <div class="task-header">
+              <div class="task-title">
+                <span>💌</span>
+                <span>Send closing thank‑you to Maria</span>
+              </div>
+              <span class="chip note">Message · ~3 min</span>
+            </div>
+            <div class="task-meta">
+              <span>Makes Maria feel seen & primes referral</span>
+            </div>
+          </div>
+
+          <div class="task-card">
+            <div class="task-header">
+              <div class="task-title">
+                <span>📎</span>
+                <span>Upload docs for Lopez closing</span>
+              </div>
+              <span class="chip admin">Admin · ~10 min</span>
+            </div>
+            <div class="task-meta">
+              <span>Keeps title on track & avoids last‑minute fire drills</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top: 2px;">
+          <div class="progress-bar">
+            <div>Today’s Script: <strong>3 / 7</strong> complete</div>
+            <div class="progress-track">
+              <div class="progress-segment filled"></div>
+              <div class="progress-segment filled"></div>
+              <div class="progress-segment filled"></div>
+              <div class="progress-segment"></div>
+              <div class="progress-segment"></div>
+              <div class="progress-segment"></div>
+              <div class="progress-segment"></div>
+            </div>
+            <div class="note">At‑A‑Boy. You just cleared Act I.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Middle: Current Episodes -->
+      <div class="column episodes-column">
+        <h2>Current Episodes</h2>
+
+        <div class="card">
+          <div class="stage-header">
+            <span class="stage-name">Act I · New Leads</span>
+            <span>3 active</span>
+          </div>
+          <div class="tiles-row">
+            <div class="tile">
+              <div class="tile-top">
+                <span class="tile-name">Anna K.</span>
+                <span class="tile-tag">Buyer · Hot</span>
+              </div>
+              <div class="tile-detail">Referred by HOA gossip queen</div>
+              <div class="tile-status">● Needs your call</div>
+            </div>
+            <div class="tile">
+              <div class="tile-top">
+                <span class="tile-name">Ben T.</span>
+                <span class="tile-tag">Buyer · Warm</span>
+              </div>
+              <div class="tile-detail">“Just browsing” but saves every listing</div>
+              <div class="tile-status">● Nurture this week</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="stage-header">
+            <span class="stage-name">Act II · House Hunts</span>
+            <span>2 active</span>
+          </div>
+          <div class="tiles-row">
+            <div class="tile">
+              <div class="tile-top">
+                <span class="tile-name">Jason R.</span>
+                <span class="tile-tag">Buyer · Active</span>
+              </div>
+              <div class="tile-detail">Wants a backyard for the dog</div>
+              <div class="tile-status">● Waiting on your call</div>
+            </div>
+            <div class="tile">
+              <div class="tile-top">
+                <span class="tile-name">Lopez Family</span>
+                <span class="tile-tag">Seller · Active</span>
+              </div>
+              <div class="tile-detail">Needs to sell before school starts</div>
+              <div class="tile-status">● New offer in &mdash; review today</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="stage-header">
+            <span class="stage-name">Act III · Under Contract</span>
+            <span>2 active</span>
+          </div>
+          <div class="tiles-row">
+            <div class="tile">
+              <div class="tile-top">
+                <span class="tile-name">Miller</span>
+                <span class="tile-tag">Buyer</span>
+              </div>
+              <div class="tile-detail">Inspection this week, lender on track</div>
+              <div class="tile-status">● Check in after inspection</div>
+            </div>
+            <div class="tile">
+              <div class="tile-top">
+                <span class="tile-name">Davis</span>
+                <span class="tile-tag">Seller</span>
+              </div>
+              <div class="tile-detail">Appraisal back, title clear</div>
+              <div class="tile-status">● Prep closing checklist</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="stage-header">
+            <span class="stage-name">Finale · Closed</span>
+            <span>2 recent</span>
+          </div>
+          <div class="tiles-row">
+            <div class="tile">
+              <div class="tile-top">
+                <span class="tile-name">Martin</span>
+                <span class="tile-tag">Closed</span>
+              </div>
+              <div class="tile-detail">Closed last week &mdash; loves the kitchen</div>
+              <div class="tile-status">● Ideal for referral ask</div>
+            </div>
+            <div class="tile">
+              <div class="tile-top">
+                <span class="tile-name">Ortiz</span>
+                <span class="tile-tag">Closed</span>
+              </div>
+              <div class="tile-detail">First‑time buyers, over the moon</div>
+              <div class="tile-status">● Send anniversary reminder later</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: At‑A‑Boy Wall -->
+      <div class="column">
+        <h2>At‑A‑Boy Wall</h2>
+        <div class="card wins-card">
+          <div class="hero-title">Today’s Wins</div>
+          <ul>
+            <li>3 follow‑ups completed</li>
+            <li>1 deal moved a stage</li>
+            <li>2 new showings booked</li>
+          </ul>
+          <p class="note">This is not QuickBooks. You’re moving stories forward.</p>
+        </div>
+
+        <div class="card">
+          <div class="hero-title">Streaks &amp; Badges</div>
+          <p class="note">Consistency beats hustle. You’re showing up.</p>
+          <div class="badge-row">
+            <span class="badge">On a roll · 5 days</span>
+            <span class="badge">Follow‑Up Machine</span>
+            <span class="badge">Closing Time</span>
+          </div>
+        </div>
+
+        <div class="card metrics-list">
+          <div class="hero-title">Feel‑Good Metrics</div>
+          <ul>
+            <li>Pipeline value: <strong>$1.2M</strong></li>
+            <li>Clients in Act II: <strong>7</strong></li>
+            <li>Last closing: <strong>12 days ago</strong></li>
+          </ul>
+          <p class="note">You’re due for the next one soon.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Simple, non-technical explainer for realtors -->
+    <div class="card" style="margin-top:16px; align-self:stretch;">
+      <div class="hero-title" style="font-size:15px; font-weight:700;">What this is (in plain English)</div>
+      <p style="font-size:14px; margin-top:8px; color: var(--muted); font-weight:700;">
+        This is a mockup of a <strong><em>“Realtor Control Center”</em></strong> I’m building.
+      </p>
+      <ul style="font-size:14px; margin:8px 0 0 18px; color: var(--muted); padding-left:0; font-weight:700;">
+        <li style="margin-bottom:4px;">Instead of you digging through email, texts, and 5 apps, this screen says: <strong><em>“Do these few things today and you’re on top of everything.”</em></strong></li>
+        <li style="margin-bottom:4px;">Every buyer and seller shows up here like an “episode,” so you can see who needs love and who’s ready to close.</li>
+        <li style="margin-bottom:4px;">For each deal, you could send the client their own link that auto‑updates as the file moves, so they can see “where we’re at” without blowing up your phone.</li>
+        <li>Behind the scenes, it keeps a <strong><em>checklist for each deal</em></strong> so title has every document before closing and nothing slips through.</li>
+      </ul>
+      <p style="font-size:14px; margin-top:10px; color: var(--muted); font-weight:700;">
+        If something like this lived on your laptop, <br />
+        <strong><em>would you actually use it every morning?</em></strong> What would you change to make it feel more “you”?
+      </p>
+    </div>
+  </div>
+</body>
+</html>
