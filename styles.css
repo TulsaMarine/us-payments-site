@@ -187,7 +187,7 @@ main {
 
 #templates .card-grid-item:hover::after {
   opacity: 1;
-  animation: templateFlash 350ms ease-out;
+  animation: templateFlash 700ms ease-out;
 }
 
 @keyframes templateFlash {
