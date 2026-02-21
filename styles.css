@@ -6,7 +6,7 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, system-ui, -system-ui, sans-serif;
   color: #e5e7eb;
-  background-color: #020617;
+  background-color: #46699E;
   font-size: 18px;
 }
 
@@ -31,7 +31,7 @@ ul, ol {
 }
 
 .hero {
-  background: radial-gradient(circle at top left, #0f172a, #020617 55%);
+  background-color: #46699E;
   color: #f9fafb;
   padding: 3.5rem 0 3rem;
 }
@@ -144,11 +144,11 @@ main {
 
 .section {
   padding: 2.75rem 0;
-  background-color: #020617;
+  background-color: #46699E;
 }
 
 .section.alt {
-  background-color: #020617;
+  background-color: #46699E;
 }
 
 .section .section-label {
