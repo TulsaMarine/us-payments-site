@@ -113,6 +113,21 @@ ul, ol {
   color: #e5e7eb;
 }
 
+.btn-veteran {
+  border: 1px solid rgba(56, 189, 248, 0.85);
+  color: #e5f3ff;
+  background: linear-gradient(135deg, #1e293b, #0f172a);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.8rem;
+}
+
+.btn-veteran::before {
+  content: "★";
+  margin-right: 0.4rem;
+  color: #38bdf8;
+}
+
 /* Existence-style flash for primary/secondary buttons (Section 02 + rest of page) */
 .btn {
   position: relative;
