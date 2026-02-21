@@ -21,36 +21,14 @@
       margin: 0;
       padding: 0;
       font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-      /* Stylized American flag background with subtle wave animation */
       background:
-        /* blue canton */
-        linear-gradient(135deg, rgba(15,23,42,0.98), rgba(15,23,42,0.98)) 0 0 / 40% 45% no-repeat,
-        /* red/white stripes */
-        repeating-linear-gradient(
-          180deg,
-          #e00202 0,
-          #e00202 10px,
-          #fefefe 10px,
-          #fefefe 20px
-        );
+        linear-gradient(180deg, #0b1120 0, #020617 40%, #020617 100%),
+        radial-gradient(circle at top left, rgba(29,78,216,0.65), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(224,2,2,0.65), transparent 55%);
       color: var(--text);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      background-attachment: fixed;
-      animation: flagWave 12s ease-in-out infinite alternate;
-    }
-
-    @keyframes flagWave {
-      0% {
-        background-position: 0 0, 0 0;
-      }
-      50% {
-        background-position: -20px -10px, 0 -20px;
-      }
-      100% {
-        background-position: -40px 0, 0 -40px;
-      }
     }
     .app-shell { display:flex; flex-direction:column; min-height:100vh; padding:24px; gap:16px; }
     header.app-header { display:flex; justify-content:space-between; align-items:center; }
