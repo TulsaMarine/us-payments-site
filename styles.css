@@ -171,6 +171,11 @@ main {
   color: #111827;
 }
 
+#templates .card-grid-item:nth-child(1) h4,
+#templates .card-grid-item:nth-child(1) p {
+  color: #111827;
+}
+
 #templates .card-grid-item:nth-child(2) {
   background: linear-gradient(135deg, #111827, #0f141f);
   border-color: #4b5563;
