@@ -165,24 +165,30 @@ main {
 }
 
 /* Template gallery buttons on BnB page */
-#templates .card-grid-item:nth-child(1) {
+#templates .card-realtor-glam {
   background: linear-gradient(135deg, #fbeff5, #e9a8b8);
   border-color: #f9a8d4;
   color: #111827;
 }
 
-#templates .card-grid-item:nth-child(1) h4,
-#templates .card-grid-item:nth-child(1) p {
+#templates .card-realtor-glam h4,
+#templates .card-realtor-glam p {
   color: #111827;
 }
 
-#templates .card-grid-item:nth-child(2) {
+#templates .card-realtor-gq {
   background: linear-gradient(135deg, #111827, #0f141f);
   border-color: #4b5563;
 }
 
-#templates .card-grid-item:nth-child(1):hover,
-#templates .card-grid-item:nth-child(2):hover {
+#templates .card-remodeler {
+  background: linear-gradient(135deg, #3b2914, #463019);
+  border-color: #a36a2b;
+}
+
+#templates .card-realtor-glam:hover,
+#templates .card-realtor-gq:hover,
+#templates .card-remodeler:hover {
   border-color: #e5e7eb;
 }
 
