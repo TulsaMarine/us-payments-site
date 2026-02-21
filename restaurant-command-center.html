@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Restaurant Command Center – Shifts & Covers</title>
+  <style>
+    :root {
+      --bg: #030712;
+      --card: #020617;
+      --border: #1e293b;
+      --accent: #f97316; /* warm orange */
+      --accent-red: #ef4444;
+      --accent-green: #22c55e;
+      --accent-amber: #fbbf24;
+      --text: #f9fafb;
+      --muted: #9ca3af;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      background: radial-gradient(circle at top left, #111827, #020617 55%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .app-shell { display:flex; flex-direction:column; min-height:100vh; padding:24px; gap:16px; }
+    header.app-header { display:flex; justify-content:space-between; align-items:center; }
+    .app-title h1 { margin:0; font-size:24px; letter-spacing:0.08em; text-transform:uppercase; }
+    .app-title span { font-size:12px; color:var(--muted); }
+    .app-right { display:flex; align-items:center; gap:16px; font-size:12px; color:var(--muted); }
+    .streak-pill { padding:6px 12px; border-radius:999px; background:rgba(34,197,94,0.12); border:1px solid rgba(34,197,94,0.7); color:#bbf7d0; display:flex; align-items:center; gap:6px; }
+    .user-chip { display:flex; align-items:center; gap:8px; padding:4px 10px; border-radius:999px; background:rgba(15,23,42,0.9); border:1px solid rgba(148,163,184,0.8); }
+    .avatar { width:26px; height:26px; border-radius:50%; background: radial-gradient(circle at 20% 0, #f97316, #0f172a); display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:600; border:1px solid rgba(248, 171, 75, 0.9); }
+    .badge-tag { font-size:11px; padding:3px 8px; border-radius:999px; border:1px solid rgba(248,171,75,0.8); color:#fed7aa; background:rgba(30,64,175,0.6); }
+    .layout { flex:1; display:grid; grid-template-columns:1.1fr 1.3fr 0.9fr; gap:16px; min-height:0; }
+    .column { display:flex; flex-direction:column; gap:12px; min-height:0; }
+    .column h2 { margin:0; font-size:13px; text-transform:uppercase; letter-spacing:0.12em; color:var(--muted); }
+    .card { background: radial-gradient(circle at top left, rgba(15,23,42,0.98), rgba(3,7,18,0.98)); border-radius:16px; border:1px solid rgba(30,41,59,0.9); box-shadow:0 18px 45px rgba(15,23,42,0.95); padding:16px 18px; }
+    .card.hero { position:relative; overflow:hidden; }
+    .card.hero::after { content:""; position:absolute; inset:0; background: radial-gradient(circle at top left, rgba(249,115,22,0.4), transparent 55%); pointer-events:none; }
+    .hero-inner { position:relative; z-index:1; }
+    .hero-title { font-size:16px; font-weight:600; margin-bottom:4px; }
+    .hero-sub { font-size:13px; color:var(--muted); margin-bottom:12px; }
+    .btn-primary { display:inline-flex; align-items:center; justify-content:center; gap:6px; padding:8px 16px; border-radius:999px; border:none; cursor:default; background:linear-gradient(135deg,#f97316,#facc15); color:#0f172a; font-size:13px; font-weight:600; box-shadow:0 12px 30px rgba(15,23,42,0.95); }
+    .btn-primary span.icon { font-size:14px; }
+    .pill { display:inline-flex; align-items:center; gap:6px; padding:4px 10px; border-radius:999px; background:rgba(15,23,42,0.9); border:1px solid rgba(148,163,184,0.8); font-size:11px; color:var(--muted); }
+    .tasks { display:flex; flex-direction:column; gap:8px; margin-top:10px; }
+    .task-card { background:var(--card); border-radius:12px; border:1px solid rgba(30,41,59,0.9); padding:10px 12px; display:flex; flex-direction:column; gap:4px; }
+    .task-header { display:flex; align-items:center; justify-content:space-between; gap:8px; }
+    .task-title { font-size:13px; display:flex; align-items:center; gap:6px; }
+    .task-meta { font-size:11px; color:var(--muted); display:flex; gap:8px; }
+    .chip { border-radius:999px; padding:2px 8px; font-size:10px; border:1px solid rgba(148,163,184,0.8); color:#e5e7eb; }
+    .chip.floor { border-color:rgba(248,171,75,0.9); color:#fed7aa; }
+    .chip.kitchen { border-color:rgba(248,113,113,0.9); color:#fecaca; }
+    .chip.admin { border-color:rgba(96,165,250,0.9); color:#bfdbfe; }
+    .progress-bar { margin-top:10px; display:flex; flex-direction:column; gap:4px; font-size:11px; color:var(--muted); }
+    .progress-track { display:flex; gap:3px; }
+    .progress-segment { flex:1; height:6px; border-radius:999px; background:#020617; }
+    .progress-segment.filled { background:linear-gradient(90deg,#f97316,#fbbf24); }
+    .episodes-column .card { padding:12px 14px 14px; }
+    .stage-header { display:flex; justify-content:space-between; align-items:center; font-size:11px; text-transform:uppercase; letter-spacing:0.12em; color:var(--muted); margin-bottom:6px; }
+    .stage-name { color:#f9fafb; }
+    .tiles-row { display:flex; gap:8px; overflow-x:auto; padding-bottom:2px; }
+    .tile { min-width:160px; background:var(--card); border-radius:14px; border:1px solid rgba(30,41,59,0.9); padding:8px 9px; display:flex; flex-direction:column; gap:4px; box-shadow:0 10px 24px rgba(15,23,42,0.95); }
+    .tile-top { display:flex; justify-content:space-between; align-items:center; font-size:12px; }
+    .tile-name { font-weight:500; }
+    .tile-tag { font-size:10px; color:var(--muted); border-radius:999px; border:1px solid rgba(148,163,184,0.8); padding:2px 6px; }
+    .tile-detail { font-size:11px; color:var(--muted); }
+    .tile-status { font-size:10px; color:var(--accent-green); display:inline-flex; align-items:center; gap:4px; margin-top:2px; }
+    .note { font-size:11px; color:var(--muted); margin-top:6px; }
+    .badge-row { display:flex; flex-wrap:wrap; gap:6px; margin-top:6px; font-size:11px; }
+    .badge { padding:4px 8px; border-radius:999px; background:rgba(15,23,42,0.9); border:1px solid rgba(148,163,184,0.8); }
+    .wins-card ul { list-style:none; padding:0; margin:6px 0 0; font-size:12px; color:var(--muted); }
+    .wins-card li::before { content:"•"; color:var(--accent-amber); display:inline-block; width:10px; margin-left:0; }
+    @media (max-width:900px){ .layout{grid-template-columns:1fr;} }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="app-header">
+      <div class="app-title">
+        <h1>Restaurant Command Center</h1>
+        <span>Shifts · Covers · Tickets · At‑A‑Boy Wall</span>
+      </div>
+      <div class="app-right">
+        <div class="streak-pill">
+          <span>On a roll · 4 nights</span>
+        </div>
+        <div class="user-chip">
+          <div class="avatar">HB</div>
+          <span>High Bench Bistro</span>
+        </div>
+        <span class="badge-tag">Dinner House · 120 Seats</span>
+      </div>
+    </header>
+
+    <div class="layout">
+      <!-- Left: Today’s Script -->
+      <div class="column">
+        <h2>Tonight’s Script</h2>
+        <div class="card hero">
+          <div class="hero-inner">
+            <div class="hero-title">Tonight’s Script</div>
+            <div class="hero-sub">Two servers on the edge of burnout, one line that gets crushed at 7:15, a bar that prints money if you feed it. Handle this list and the whole room feels smoother.</div>
+            <button class="btn-primary">
+              <span class="icon">▶</span>
+              <span>Start pre‑shift checklist</span>
+            </button>
+            <div class="pill" style="margin-top:10px;">
+              <span>Small fixes before doors open = fewer fires when they do.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="tasks">
+          <div class="task-card">
+            <div class="task-header">
+              <div class="task-title">
+                <span>🍽️</span>
+                <span>Walk floor with FOH lead</span>
+              </div>
+              <span class="chip floor">FOH · ~10 min</span>
+            </div>
+            <div class="task-meta">
+              <span>Check sections, reset tables, make sure nobody is "in the weeds" before the first ticket prints</span>
+            </div>
+          </div>
+          <div class="task-card">
+            <div class="task-header">
+              <div class="task-title">
+                <span>👨‍🍳</span>
+                <span>Confirm line setup with kitchen</span>
+              </div>
+              <span class="chip kitchen">BOH · ~8 min</span>
+            </div>
+            <div class="task-meta">
+              <span>Hot side / cold side ready, 86 list updated, backups actually prepped not "we'll get to it"</span>
+            </div>
+          </div>
+          <div class="task-card">
+            <div class="task-header">
+              <div class="task-title">
+                <span>📊</span>
+                <span>Review reservations & walk‑in forecast</span>
+              </div>
+              <span class="chip admin">Office · ~10 min</span>
+            </div>
+            <div class="task-meta">
+              <span>Know where the slam points are instead of "we'll see what happens"</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:2px;">
+          <div class="progress-bar">
+            <div>Tonight’s Script: <strong>3 / 6</strong> complete</div>
+            <div class="progress-track">
+              <div class="progress-segment filled"></div>
+              <div class="progress-segment filled"></div>
+              <div class="progress-segment filled"></div>
+              <div class="progress-segment"></div>
+              <div class="progress-segment"></div>
+              <div class="progress-segment"></div>
+            </div>
+            <div class="note">At‑A‑Boy. You just gave the room a chance to win.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Middle: Tonight’s Book -->
+      <div class="column episodes-column">
+        <h2>Book · Shifts & Covers</h2>
+
+        <div class="card">
+          <div class="stage-header">
+            <span class="stage-name">Reservations</span>
+            <span>48 booked</span>
+          </div>
+          <div class="tiles-row">
+            <div class="tile">
+              <div class="tile-top">
+                <span class="tile-name">5:30 – Early Crowd</span>
+                <span class="tile-tag">15 covers</span>
+              </div>
+              <div class="tile-detail">Mostly 2‑tops · good warm‑up for staff</div>
+              <div class="tile-status">● Great time to push specials</div>
+            </div>
+            <div class="tile">
+              <div class="tile-top">
+                <span class="tile-name">7:00 – First Slam</span>
+                <span class="tile-tag">22 covers</span>
+              </div>
+              <div class="tile-detail">Two large parties plus 4‑tops</div>
+              <div class="tile-status">● Make sure most experienced server owns the big top</div>
+            </div>
+            <div class="tile">
+              <div class="tile-top">
+                <span class="tile-name">8:30 – Late Walk‑ins</span>
+                <span class="tile-tag">11 covers</span>
+              </div>
+              <div class="tile-detail">Bar seats + a few tables</div>
+              <div class="tile-status">● Watch kitchen fatigue, adjust ticket pacing</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="stage-header">
+            <span class="stage-name">Labor & Sections</span>
+            <span>Staffing</span>
+          </div>
+          <div class="tiles-row">
+            <div class="tile">
+              <div class="tile-top">
+                <span class="tile-name">FOH – 4 servers, 1 bartender</span>
+                <span class="tile-tag">Floor</span>
+              </div>
+              <div class="tile-detail">One new server on patio section</div>
+              <div class="tile-status">● Keep patio small until they find their legs</div>
+            </div>
+            <div class="tile">
+              <div class="tile-top">
+                <span class="tile-name">BOH – 3 line, 1 expo</span>
+                <span class="tile-tag">Line</span>
+              </div>
+              <div class="tile-detail">Grill cook covering fry station</div>
+              <div class="tile-status">● Watch ticket times on fried items</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: At-A-Boy Wall -->
+      <div class="column">
+        <h2>At‑A‑Boy Wall</h2>
+        <div class="card wins-card">
+          <div class="hero-title">Tonight’s Wins</div>
+          <ul>
+            <li>No‑show risk flagged and overbooked smart, not blind</li>
+            <li>Line setup checked before the first ticket</li>
+            <li>Bar specials planned instead of guessed</li>
+          </ul>
+          <p class="note">The difference between "held it together" and "that was a good night."</p>
+        </div>
+
+        <div class="card">
+          <div class="hero-title">Streaks &amp; Badges</div>
+          <p class="note">Everyone remembers the shift that goes off the rails. You’re stacking shifts that don’t.</p>
+          <div class="badge-row">
+            <span class="badge">On a roll · 4 nights</span>
+            <span class="badge">No 60‑min Tickets</span>
+            <span class="badge">Happy Bar, Happy Bank</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="hero-title">Scoreboard</div>
+          <ul class="wins-card">
+            <li>Reservations tonight: <strong>48</strong></li>
+            <li>Projected covers: <strong>80–90</strong></li>
+            <li>Avg ticket target: <strong>$42</strong></li>
+            <li>Comped dishes yesterday: <strong>1</strong></li>
+          </ul>
+          <p class="note">Keep this board trending the right way and payroll, vendors, and owner all sleep better.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

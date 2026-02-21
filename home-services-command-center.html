@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Home Services Command Center – Trucks & Radios</title>
+  <style>
+    :root {
+      --bg: #020617;
+      --card: #020617;
+      --card-alt: #020617;
+      --border: #1f2937;
+      --accent: #38bdf8; /* light blue */
+      --accent-amber: #fbbf24;
+      --accent-green: #22c55e;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      background: radial-gradient(circle at top left, #0f172a, #020617 55%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .app-shell { display:flex; flex-direction:column; min-height:100vh; padding:24px; gap:16px; }
+    header.app-header { display:flex; justify-content:space-between; align-items:center; }
+    .app-title h1 { margin:0; font-size:24px; letter-spacing:0.08em; text-transform:uppercase; }
+    .app-title span { font-size:12px; color:var(--muted); }
+    .app-right { display:flex; align-items:center; gap:16px; font-size:12px; color:var(--muted); }
+    .streak-pill { padding:6px 12px; border-radius:999px; background:rgba(56,189,248,0.12); border:1px solid rgba(56,189,248,0.7); color:#7dd3fc; display:flex; align-items:center; gap:6px; }
+    .user-chip { display:flex; align-items:center; gap:8px; padding:4px 10px; border-radius:999px; background:rgba(15,23,42,0.9); border:1px solid rgba(30,64,175,0.8); }
+    .avatar { width:26px; height:26px; border-radius:50%; background: radial-gradient(circle at 20% 0, #38bdf8, #0f172a); display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:600; border:1px solid rgba(56,189,248,0.9); }
+    .badge-tag { font-size:11px; padding:3px 8px; border-radius:999px; border:1px solid rgba(56,189,248,0.6); color:#e5e7eb; background:rgba(15,23,42,0.8); }
+    .layout { flex:1; display:grid; grid-template-columns:1.1fr 1.3fr 0.9fr; gap:16px; min-height:0; }
+    .column { display:flex; flex-direction:column; gap:12px; min-height:0; }
+    .column h2 { margin:0; font-size:13px; text-transform:uppercase; letter-spacing:0.12em; color:var(--muted); }
+    .card { background: radial-gradient(circle at top left, rgba(15,23,42,0.98), rgba(3,7,18,0.98)); border-radius:16px; border:1px solid rgba(31,41,55,0.9); box-shadow:0 18px 45px rgba(15,23,42,0.9); padding:16px 18px; }
+    .card.hero::after { content:""; position:absolute; inset:0; background: radial-gradient(circle at top left, rgba(56,189,248,0.24), transparent 60%); pointer-events:none; }
+    .card.hero { position:relative; overflow:hidden; }
+    .hero-inner { position:relative; z-index:1; }
+    .hero-title { font-size:16px; font-weight:600; margin-bottom:4px; }
+    .hero-sub { font-size:13px; color:var(--muted); margin-bottom:12px; }
+    .btn-primary { display:inline-flex; align-items:center; justify-content:center; gap:6px; padding:8px 16px; border-radius:999px; border:none; cursor:default; background:linear-gradient(135deg,#38bdf8,#fbbf24); color:#020617; font-size:13px; font-weight:600; box-shadow:0 12px 30px rgba(15,23,42,0.95); }
+    .btn-primary span.icon { font-size:14px; }
+    .pill { display:inline-flex; align-items:center; gap:6px; padding:4px 10px; border-radius:999px; background:rgba(15,23,42,0.9); border:1px solid rgba(30,64,175,0.7); font-size:11px; color:var(--muted); }
+    .tasks { display:flex; flex-direction:column; gap:8px; margin-top:10px; }
+    .task-card { background:var(--card); border-radius:12px; border:1px solid rgba(31,41,55,0.9); padding:10px 12px; display:flex; flex-direction:column; gap:4px; }
+    .task-header { display:flex; align-items:center; justify-content:space-between; gap:8px; }
+    .task-title { font-size:13px; display:flex; align-items:center; gap:6px; }
+    .task-meta { font-size:11px; color:var(--muted); display:flex; gap:8px; }
+    .chip { border-radius:999px; padding:2px 8px; font-size:10px; border:1px solid rgba(148,163,184,0.8); color:#bfdbfe; }
+    .chip.dispatch { border-color:rgba(56,189,248,0.8); color:#7dd3fc; }
+    .chip.site { border-color:rgba(248,250,252,0.7); color:#e5e7eb; }
+    .chip.admin { border-color:rgba(251,191,36,0.8); color:#facc15; }
+    .progress-bar { margin-top:10px; display:flex; flex-direction:column; gap:4px; font-size:11px; color:var(--muted); }
+    .progress-track { display:flex; gap:3px; }
+    .progress-segment { flex:1; height:6px; border-radius:999px; background:#020617; }
+    .progress-segment.filled { background:linear-gradient(90deg,#38bdf8,#fbbf24); }
+    .episodes-column .card { padding:12px 14px 14px; }
+    .stage-header { display:flex; justify-content:space-between; align-items:center; font-size:11px; text-transform:uppercase; letter-spacing:0.12em; color:var(--muted); margin-bottom:6px; }
+    .stage-name { color:#e5e7eb; }
+    .tiles-row { display:flex; gap:8px; overflow-x:auto; padding-bottom:2px; }
+    .tile { min-width:160px; background:var(--card-alt); border-radius:14px; border:1px solid rgba(31,41,55,0.9); padding:8px 9px; display:flex; flex-direction:column; gap:4px; box-shadow:0 10px 24px rgba(15,23,42,0.95); }
+    .tile-top { display:flex; justify-content:space-between; align-items:center; font-size:12px; }
+    .tile-name { font-weight:500; }
+    .tile-tag { font-size:10px; color:var(--muted); border-radius:999px; border:1px solid rgba(148,163,184,0.7); padding:2px 6px; }
+    .tile-detail { font-size:11px; color:var(--muted); }
+    .tile-status { font-size:10px; color:var(--accent-green); display:inline-flex; align-items:center; gap:4px; margin-top:2px; }
+    .note { font-size:11px; color:var(--muted); margin-top:6px; }
+    .badge-row { display:flex; flex-wrap:wrap; gap:6px; margin-top:6px; font-size:11px; }
+    .badge { padding:4px 8px; border-radius:999px; background:rgba(15,23,42,0.9); border:1px solid rgba(148,163,184,0.8); }
+    .wins-card ul { list-style:none; padding:0; margin:6px 0 0; font-size:12px; color:var(--muted); }
+    .wins-card li::before { content:"•"; color:var(--accent-amber); display:inline-block; width:10px; margin-left:0; }
+    @media (max-width:900px){ .layout{grid-template-columns:1fr;} }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="app-header">
+      <div class="app-title">
+        <h1>Home Services Command Center</h1>
+        <span>Calls · Trucks · Crews · At‑A‑Boy Wall</span>
+      </div>
+      <div class="app-right">
+        <div class="streak-pill">
+          <span>On a roll · 5 days</span>
+        </div>
+        <div class="user-chip">
+          <div class="avatar">JT</div>
+          <span>JT Mechanical</span>
+        </div>
+        <span class="badge-tag">HVAC · Plumbing · Electrical</span>
+      </div>
+    </header>
+
+    <div class="layout">
+      <!-- Left: Today’s Script -->
+      <div class="column">
+        <h2>Today’s Script</h2>
+        <div class="card hero">
+          <div class="hero-inner">
+            <div class="hero-title">Today’s Script</div>
+            <div class="hero-sub">Three calls to book, two callbacks to save, one big job you do NOT want to lose. Clear this list and every truck rolls with purpose.</div>
+            <button class="btn-primary">
+              <span class="icon">▶</span>
+              <span>Start my script</span>
+            </button>
+            <div class="pill" style="margin-top:10px;">
+              <span>One call, one dispatch, one satisfied customer at a time.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="tasks">
+          <div class="task-card">
+            <div class="task-header">
+              <div class="task-title">
+                <span>📞</span>
+                <span>Call Wilson about no‑heat call from last night</span>
+              </div>
+              <span class="chip dispatch">Dispatch · ~7 min</span>
+            </div>
+            <div class="task-meta">
+              <span>Shows up before they blast you on Facebook or call the next guy</span>
+            </div>
+          </div>
+          <div class="task-card">
+            <div class="task-header">
+              <div class="task-title">
+                <span>🚚</span>
+                <span>Confirm today’s first‑call windows with techs</span>
+              </div>
+              <span class="chip site">Crew · ~10 min</span>
+            </div>
+            <div class="task-meta">
+              <span>Make sure nobody is sitting in the shop at 9:30 "waiting on paperwork"</span>
+            </div>
+          </div>
+          <div class="task-card">
+            <div class="task-header">
+              <div class="task-title">
+                <span>📎</span>
+                <span>Send estimate follow‑up on 3 open quotes</span>
+              </div>
+              <span class="chip admin">Office · ~15 min</span>
+            </div>
+            <div class="task-meta">
+              <span>Pull a couple grand off the table just by asking</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:2px;">
+          <div class="progress-bar">
+            <div>Today’s Script: <strong>3 / 7</strong> complete</div>
+            <div class="progress-track">
+              <div class="progress-segment filled"></div>
+              <div class="progress-segment filled"></div>
+              <div class="progress-segment filled"></div>
+              <div class="progress-segment"></div>
+              <div class="progress-segment"></div>
+              <div class="progress-segment"></div>
+              <div class="progress-segment"></div>
+            </div>
+            <div class="note">At‑A‑Boy. Morning chaos just turned into a game plan.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Middle: Current Calls/Jobs -->
+      <div class="column episodes-column">
+        <h2>Board · Calls & Jobs</h2>
+
+        <div class="card">
+          <div class="stage-header">
+            <span class="stage-name">Today’s Board</span>
+            <span>4 calls</span>
+          </div>
+          <div class="tiles-row">
+            <div class="tile">
+              <div class="tile-top">
+                <span class="tile-name">Wilson – No Heat</span>
+                <span class="tile-tag">Emergency</span>
+              </div>
+              <div class="tile-detail">Furnace 15+ yrs · likely replacement candidate</div>
+              <div class="tile-status">● Get a tech there before noon</div>
+            </div>
+            <div class="tile">
+              <div class="tile-top">
+                <span class="tile-name">Garcia – Leaking Water Heater</span>
+                <span class="tile-tag">Same‑Day</span>
+              </div>
+              <div class="tile-detail">Pan full · water shutoff already</div>
+              <div class="tile-status">● Swap & upsell tankless if fit</div>
+            </div>
+            <div class="tile">
+              <div class="tile-top">
+                <span class="tile-name">Lee – Panel Upgrade</span>
+                <span class="tile-tag">Scheduled</span>
+              </div>
+              <div class="tile-detail">Permit pulled · inspector at 3pm</div>
+              <div class="tile-status">● Make sure crew is on site early</div>
+            </div>
+            <div class="tile">
+              <div class="tile-top">
+                <span class="tile-name">Owens – Maintenance Plan</span>
+                <span class="tile-tag">PM</span>
+              </div>
+              <div class="tile-detail">Annual tune‑up · great upsell candidate</div>
+              <div class="tile-status">● Offer duct cleaning / IAQ package</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="stage-header">
+            <span class="stage-name">Quote Pipeline</span>
+            <span>3 open</span>
+          </div>
+          <div class="tiles-row">
+            <div class="tile">
+              <div class="tile-top">
+                <span class="tile-name">Smith – System Replace</span>
+                <span class="tile-tag">$9,800</span>
+              </div>
+              <div class="tile-detail">Follow‑up sent Mon · no answer yet</div>
+              <div class="tile-status">● Second follow‑up today</div>
+            </div>
+            <div class="tile">
+              <div class="tile-top">
+                <span class="tile-name">Patel – Tankless + Softener</span>
+                <span class="tile-tag">$6,200</span>
+              </div>
+              <div class="tile-detail">Wants to "talk to spouse"</div>
+              <div class="tile-status">● Check in before weekend</div>
+            </div>
+            <div class="tile">
+              <div class="tile-top">
+                <span class="tile-name">Harris – Small Commercial PM</span>
+                <span class="tile-tag">Contract</span>
+              </div>
+              <div class="tile-detail">Waiting on property manager sign‑off</div>
+              <div class="tile-status">● Nudge with quick value summary</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: At-A-Boy Wall -->
+      <div class="column">
+        <h2>At‑A‑Boy Wall</h2>
+        <div class="card wins-card">
+          <div class="hero-title">Today’s Wins</div>
+          <ul>
+            <li>4 calls scheduled into real windows</li>
+            <li>3 open quotes got a follow‑up instead of crickets</li>
+            <li>0 trucks sitting idle after 9am</li>
+          </ul>
+          <p class="note">This is how you stop feeling like the phone’s in charge of you.</p>
+        </div>
+
+        <div class="card">
+          <div class="hero-title">Streaks &amp; Badges</div>
+          <p class="note">You don’t need perfect days. You need fewer wasted ones.</p>
+          <div class="badge-row">
+            <span class="badge">On a roll · 5 days</span>
+            <span class="badge">No Idle Trucks</span>
+            <span class="badge">Quote Follow‑Up Machine</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="hero-title">Scoreboard</div>
+          <ul class="wins-card">
+            <li>Calls booked today: <strong>4</strong></li>
+            <li>Quotes in pipeline: <strong>7</strong></li>
+            <li>Membership plans active: <strong>56</strong></li>
+            <li>Unassigned calls: <strong>0</strong></li>
+          </ul>
+          <p class="note">This is the stuff that makes payroll, not the busywork.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
