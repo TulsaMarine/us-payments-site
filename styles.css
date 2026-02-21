@@ -150,7 +150,7 @@ ul, ol {
 
 .btn:hover::after {
   opacity: 1;
-  animation: templateHeartbeat 900ms ease-out;
+  animation: templateHeartbeat 3s ease-in-out infinite;
 }
 
 @keyframes templateHeartbeat {
