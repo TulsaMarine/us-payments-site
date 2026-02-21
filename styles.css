@@ -299,13 +299,27 @@ main {
   letter-spacing: 0.08em;
 }
 
+#templates .card-veteran {
+  background-color: #E00202;
+  border-color: #fecaca;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.8rem;
+}
+
+#templates .card-veteran h4,
+#templates .card-veteran p {
+  color: #fef2f2;
+}
+
 #templates .card-realtor-glam:hover,
 #templates .card-realtor-gq:hover,
 #templates .card-remodeler:hover,
 #templates .card-home-services:hover,
 #templates .card-restaurant:hover,
 #templates .card-roofer:hover,
-#templates .card-insurance:hover {
+#templates .card-insurance:hover,
+#templates .card-veteran:hover {
   border-color: #e5e7eb;
 }
 
