@@ -367,6 +367,32 @@ main {
   transform: translateY(-50%);
 }
 
+/* Flash hover effect for Section 02 solution cards on index page */
+#what-it-does .card-grid-item {
+  position: relative;
+  overflow: hidden;
+}
+
+#what-it-does .card-grid-item::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 0% 0%, rgba(248, 250, 252, 0.16), transparent 60%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.1s ease-out;
+}
+
+#what-it-does .card-grid-item:hover {
+  transform: translateY(-6px) scale(1.25);
+  z-index: 5;
+}
+
+#what-it-does .card-grid-item:hover::after {
+  opacity: 1;
+  animation: templateFlash 700ms ease-out;
+}
+
 .pipeline-step:last-child::after {
   display: none;
 }
