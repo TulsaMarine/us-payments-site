@@ -168,6 +168,7 @@ main {
 #templates .card-grid-item:nth-child(1) {
   background: linear-gradient(135deg, #fbeff5, #e9a8b8);
   border-color: #f9a8d4;
+  color: #111827;
 }
 
 #templates .card-grid-item:nth-child(2) {
