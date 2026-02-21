@@ -166,6 +166,16 @@ main {
   background-color: #46699E;
 }
 
+/* VSO page overrides: let the campfire image show through */
+.vso-page .hero {
+  background: transparent;
+}
+
+.vso-page .section,
+.vso-page .section.alt {
+  background: transparent;
+}
+
 .section .section-label {
   font-size: 0.8rem;
   text-transform: uppercase;
