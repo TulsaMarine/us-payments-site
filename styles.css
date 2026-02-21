@@ -156,27 +156,27 @@ ul, ol {
 @keyframes templateHeartbeat {
   0% {
     box-shadow: 0 0 0 rgba(248, 250, 252, 0);
-    background: radial-gradient(circle at 50% 0%, rgba(248, 250, 252, 0.9), transparent 55%);
+    background: radial-gradient(circle at 50% 0%, rgba(248, 250, 252, 1), transparent 50%);
     transform: scale(1);
   }
-  35% {
-    box-shadow: 0 0 45px rgba(248, 250, 252, 1);
-    background: radial-gradient(circle at 50% 0%, rgba(248, 250, 252, 0.7), transparent 60%);
-    transform: scale(1.12);
+  30% {
+    box-shadow: 0 0 90px rgba(248, 250, 252, 1);
+    background: radial-gradient(circle at 50% 0%, rgba(248, 250, 252, 0.9), transparent 55%);
+    transform: scale(1.18);
   }
-  55% {
-    box-shadow: 0 0 30px rgba(248, 250, 252, 0.8);
-    background: radial-gradient(circle at 50% 0%, rgba(248, 250, 252, 0.5), transparent 65%);
-    transform: scale(1.06);
+  50% {
+    box-shadow: 0 0 60px rgba(248, 250, 252, 0.9);
+    background: radial-gradient(circle at 50% 0%, rgba(248, 250, 252, 0.7), transparent 60%);
+    transform: scale(1.08);
   }
   75% {
-    box-shadow: 0 0 40px rgba(248, 250, 252, 0.9);
-    background: radial-gradient(circle at 50% 0%, rgba(248, 250, 252, 0.6), transparent 60%);
-    transform: scale(1.12);
+    box-shadow: 0 0 80px rgba(248, 250, 252, 1);
+    background: radial-gradient(circle at 50% 0%, rgba(248, 250, 252, 0.85), transparent 55%);
+    transform: scale(1.18);
   }
   100% {
     box-shadow: 0 0 0 rgba(248, 250, 252, 0);
-    background: radial-gradient(circle at 50% 0%, rgba(248, 250, 252, 0.1), transparent 70%);
+    background: radial-gradient(circle at 50% 0%, rgba(248, 250, 252, 0.15), transparent 70%);
     transform: scale(1);
   }
 }
