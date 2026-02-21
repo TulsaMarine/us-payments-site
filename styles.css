@@ -176,6 +176,28 @@ main {
   background: transparent;
 }
 
+/* VSO page text outline for readability over campfire */
+.vso-page body,
+.vso-page .hero,
+.vso-page .section,
+.vso-page .footer {
+  color: #f9fafb;
+}
+
+.vso-page h1,
+.vso-page h2,
+.vso-page h3,
+.vso-page p,
+.vso-page li,
+.vso-page .section-label,
+.vso-page .btn {
+  text-shadow:
+    1px 1px 0 #000000,
+    -1px 1px 0 #000000,
+    1px -1px 0 #000000,
+    -1px -1px 0 #000000;
+}
+
 .section .section-label {
   font-size: 0.8rem;
   text-transform: uppercase;
