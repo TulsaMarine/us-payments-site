@@ -181,7 +181,7 @@ main {
 }
 
 #templates .card-grid-item:hover {
-  transform: translateY(-6px) scale(1.5);
+  transform: translateY(-6px) scale(1.25);
   z-index: 5;
 }
 
