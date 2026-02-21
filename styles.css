@@ -179,16 +179,48 @@ main {
 #templates .card-realtor-gq {
   background: linear-gradient(135deg, #111827, #0f141f);
   border-color: #4b5563;
+  font-family: "Georgia", "Times New Roman", serif;
+  text-transform: none;
 }
 
 #templates .card-remodeler {
   background: linear-gradient(135deg, #3b2914, #463019);
   border-color: #a36a2b;
+  font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  text-transform: uppercase;
+}
+
+#templates .card-home-services {
+  background: linear-gradient(135deg, #0f172a, #0f766e);
+  border-color: #14b8a6;
+  font-family: "Menlo", "SF Mono", ui-monospace, monospace;
+}
+
+#templates .card-restaurant {
+  background: radial-gradient(circle at top left, #1f2937, #111827);
+  border-color: #f97316;
+  font-style: italic;
+}
+
+#templates .card-roofer {
+  background: linear-gradient(135deg, #111827, #7c2d12);
+  border-color: #f97316;
+  text-transform: uppercase;
+}
+
+#templates .card-insurance {
+  background: linear-gradient(135deg, #0f172a, #1e40af);
+  border-color: #0ea5e9;
+  letter-spacing: 0.08em;
 }
 
 #templates .card-realtor-glam:hover,
 #templates .card-realtor-gq:hover,
-#templates .card-remodeler:hover {
+#templates .card-remodeler:hover,
+#templates .card-home-services:hover,
+#templates .card-restaurant:hover,
+#templates .card-roofer:hover,
+#templates .card-insurance:hover {
   border-color: #e5e7eb;
 }
 
