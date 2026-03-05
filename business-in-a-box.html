@@ -3,74 +3,170 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>US Payments – Business / Bot in a Box</title>
+  <title>Command Centers – Your Business on One Screen | US Payments</title>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    .cc-hero { text-align: center; padding: 4rem 0 2.5rem; }
+    .cc-hero h1 { font-size: 2.6rem; font-weight: 800; margin-bottom: 0.75rem; }
+    .cc-hero .tagline { font-size: 1.25rem; opacity: 0.9; max-width: 640px; margin: 0 auto 0.5rem; }
+    .cc-hero .subline { font-size: 0.95rem; opacity: 0.65; max-width: 560px; margin: 0 auto; }
+
+    .cc-gallery { padding: 1rem 0 3rem; }
+    .cc-gallery .grid-2 { gap: 1.5rem; }
+
+    .cc-card { display: flex; flex-direction: column; justify-content: space-between; min-height: 170px; }
+    .cc-card h4 { margin: 0 0 0.5rem; font-size: 1.15rem; }
+    .cc-card .cc-desc { font-size: 0.85rem; opacity: 0.85; margin: 0 0 1rem; flex: 1; }
+    .cc-card .cc-link { font-size: 0.85rem; font-weight: 600; text-decoration: none; color: inherit; opacity: 0.9; }
+    .cc-card .cc-link:hover { opacity: 1; text-decoration: underline; }
+    .cc-card .cc-badge { display: inline-block; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; padding: 0.2em 0.6em; border-radius: 4px; background: rgba(255,255,255,0.15); opacity: 0.7; }
+
+    .cc-cta { text-align: center; padding: 2rem 0 3.5rem; }
+    .cc-cta h2 { font-size: 1.8rem; margin-bottom: 0.5rem; }
+    .cc-cta p { opacity: 0.8; margin-bottom: 1.5rem; }
+
+    .cc-footer { text-align: center; padding: 1rem 0 2rem; font-size: 0.75rem; opacity: 0.45; }
+    .cc-vet { font-size: 0.85rem; text-align: center; margin-top: 1.5rem; opacity: 0.75; }
+  </style>
 </head>
 <body>
-  <header class="hero">
+
+  <header class="hero cc-hero">
     <div class="container">
       <nav class="top-nav">
         <a href="index.html" class="nav-pill">
           <span>← Back to US Payments</span>
         </a>
       </nav>
-    </div>
-    <div class="container hero-inner">
-      <div class="hero-copy">
-        <h1>Business / Bot in a Box.</h1>
-        <p class="hero-sub">This concept page is temporarily offline while we rework how we present it publicly.</p>
-        <p class="made-by made-by--hero">If you’re seeing this and need to talk about the Bot‑in‑a‑Box thesis, email Chuck directly.</p>
-        <div class="hero-ctas">
-          <a href="mailto:Nunyafbusiness@icloud.com?subject=Bot-in-a-Box%20%2F%20US%20Payments&body=Hi%20Chuck%2C%0A%0AI%E2%80%99d%20like%20to%20talk%20about%20Bot-in-a-Box.%0A%0A-%20" class="btn btn-secondary">Email Chuck</a>
-          <a href="index.html" class="btn btn-primary">Back to main site</a>
-        </div>
-      </div>
+
+      <h1>Command Centers</h1>
+      <p class="tagline">One screen. Your whole business.<br>Every morning you open this and it tells you exactly what to do today.</p>
+      <p class="subline">Each Command Center is built for a specific trade or business — wired live, in front of you, so you see it working from day one.</p>
+      <p class="cc-vet">🇺🇸 Veteran-Owned &amp; Operated</p>
     </div>
   </header>
 
   <main>
-    <section class="section" id="realtor-cc">
+    <section class="section cc-gallery" id="templates">
       <div class="container">
-        <div class="section-label">Realtor Command Center</div>
-        <h2>Owner-facing script + live demo workflow.</h2>
-        <p><strong>Script (spoken):</strong></p>
-        <p>“Right now you’re juggling email, text threads, and your CRM. This Command Center is the one screen that says: ‘Do these few things today and your pipeline stays tight.’</p>
-        <p>We’ll start with three tiles: Missed Call → Text Back, Review Requests, and Weekly Owner Dashboard. When a buyer or seller calls and you miss it, this tile fires and texts them back inside 60 seconds with a link to reply or book. When a deal closes, this tile asks for a Google review automatically. And every Monday morning, this tile emails you one page with money, new leads, showings, and closings.</p>
-        <p>I’ll wire your version live in front of you so you can see it working—no black box. If it doesn’t earn its keep in the first month, we don’t add more tiles.”</p>
-        <p><strong>In-dashboard visual:</strong></p>
-        <ul>
-          <li>Left column: <em>Today’s Script</em> with “Call these 3 people” and “Reply to these 2 missed calls” cards.</li>
-          <li>Middle column: <em>Pipeline Episodes</em> tiles for each buyer/seller, showing stage, last touch, and next step.</li>
-          <li>Right column: <em>At‑A‑Boy Wall</em> with weekly wins and a small “This week’s numbers” dashboard (leads, showings, offers, closings).</li>
-        </ul>
-        <p>Live demo flow: mark a call as missed → see the Missed Call tile tick up → watch the auto‑text go out → show the episode tile update.</p>
-        <p><a href="realtor-command-center.html" class="btn btn-secondary">View Realtor Command Center Demo</a></p>
+        <div class="grid grid-2">
+
+          <!-- Realtor – Glam -->
+          <a href="realtor-command-center.html" class="card-grid-item card-realtor-glam cc-card">
+            <div>
+              <h4>Realtor — Glam</h4>
+              <p class="cc-desc">Missed calls become callbacks, closings become reviews, and your pipeline stays tight — all on one elegant screen.</p>
+            </div>
+            <span class="cc-link">View Demo →</span>
+          </a>
+
+          <!-- Realtor – GQ -->
+          <a href="realtor-command-center-gq.html" class="card-grid-item card-realtor-gq cc-card">
+            <div>
+              <h4>Realtor — GQ</h4>
+              <p class="cc-desc">The same powerful Realtor Command Center in a dark, refined look built for agents who prefer bold simplicity.</p>
+            </div>
+            <span class="cc-link">View Demo →</span>
+          </a>
+
+          <!-- Roofer -->
+          <a href="roofer-command-center.html" class="card-grid-item card-roofer cc-card">
+            <div>
+              <h4>Roofer</h4>
+              <p class="cc-desc">Storm leads, crew schedules, and invoices on one screen. No more missed calls hiding money in your voicemail.</p>
+            </div>
+            <span class="cc-link">View Demo →</span>
+          </a>
+
+          <!-- Remodeler -->
+          <a href="remodeler-command-center.html" class="card-grid-item card-remodeler cc-card">
+            <div>
+              <h4>Remodeler</h4>
+              <p class="cc-desc">Jobs, change orders, and cash-in-field — off the whiteboard and into a system that tells you what to bill today.</p>
+            </div>
+            <span class="cc-link">View Demo →</span>
+          </a>
+
+          <!-- Home Services -->
+          <a href="home-services-command-center.html" class="card-grid-item card-home-services cc-card">
+            <div>
+              <h4>Home Services</h4>
+              <p class="cc-desc">HVAC, plumbing, electrical — one dashboard for dispatching, follow-ups, and keeping the schedule full.</p>
+            </div>
+            <span class="cc-link">View Demo →</span>
+          </a>
+
+          <!-- Restaurant -->
+          <a href="restaurant-command-center.html" class="card-grid-item card-restaurant cc-card">
+            <div>
+              <h4>Restaurant</h4>
+              <p class="cc-desc">Reservations, reviews, and daily numbers. Know if tonight will be good before the doors even open.</p>
+            </div>
+            <span class="cc-link">View Demo →</span>
+          </a>
+
+          <!-- Insurance Agent -->
+          <a href="insurance-agent-command-center.html" class="card-grid-item card-insurance cc-card">
+            <div>
+              <h4>Insurance Agent</h4>
+              <p class="cc-desc">Renewals, quotes, and client follow-ups on one screen so nothing falls through the cracks.</p>
+            </div>
+            <span class="cc-link">View Demo →</span>
+          </a>
+
+          <!-- Veteran -->
+          <a href="veteran-command-center.html" class="card-grid-item card-veteran cc-card">
+            <div>
+              <h4>Veteran</h4>
+              <p class="cc-desc">Benefits, appointments, and transition milestones — a mission board for the next chapter.</p>
+            </div>
+            <span class="cc-link">View Demo →</span>
+          </a>
+
+          <!-- BnB -->
+          <a href="bnb-command-center.html" class="card-grid-item cc-card" style="background: linear-gradient(135deg, #1e3a2f, #065f46); border-color: #34d399;">
+            <div>
+              <h4>Short-Term Rental / BnB</h4>
+              <p class="cc-desc">Guest comms, cleaning schedules, and occupancy — run your rental like a pro without living on your phone.</p>
+            </div>
+            <span class="cc-link">View Demo →</span>
+          </a>
+
+          <!-- Student – Coming Soon -->
+          <div class="card-grid-item cc-card" style="background: linear-gradient(135deg, #1e293b, #334155); border-color: #64748b; cursor: default;">
+            <div>
+              <h4>Student</h4>
+              <p class="cc-desc">Assignments, requirements, and wins on one screen — so students (and parents) know exactly where they stand.</p>
+            </div>
+            <span class="cc-badge">Coming Soon</span>
+          </div>
+
+          <!-- Campaign – Coming Soon -->
+          <div class="card-grid-item cc-card" style="background: linear-gradient(135deg, #1e293b, #1e3a5f); border-color: #64748b; cursor: default;">
+            <div>
+              <h4>Campaign</h4>
+              <p class="cc-desc">Cash, doors, and votes — one patriotic dashboard so the candidate and treasurer know if they're winning.</p>
+            </div>
+            <span class="cc-badge">Coming Soon</span>
+          </div>
+
+        </div>
       </div>
     </section>
 
-    <section class="section" id="remodeler-cc">
+    <section class="section cc-cta">
       <div class="container">
-        <div class="section-label">Remodeler Command Center</div>
-        <h2>Owner-facing script + live demo workflow.</h2>
-        <p><strong>Script (spoken):</strong></p>
-        <p>“This is your shop wall on a screen. Instead of guessing from texts and paper notes, this Command Center tells you: ‘Hit these jobs and calls today and the whole board moves forward.’</p>
-        <p>We start with three tiles: Missed Call → Text Back, Change Order + Invoice Follow‑up, and Weekly Owner Dashboard. When someone calls about a new job and you miss it, the tile auto‑texts them and logs the lead. When a change order is approved but not billed, this tile reminds you and sends the invoice link. Every Monday, this tile emails you one page with jobs in progress, cash trapped in the field, and what’s ready to bill.</p>
-        <p>I’ll build your version live so you can see it pull in your jobs and dollars. If you don’t feel more in control after a week, we stop right there.”</p>
-        <p><strong>In-dashboard visual:</strong></p>
-        <ul>
-          <li>Left column: <em>Today’s Script</em> with “Call these 3 homeowners” and “Send these 2 change order invoices.”</li>
-          <li>Middle column: <em>Jobs Board</em> showing each project as a tile with phase, crew, and next action.</li>
-          <li>Right column: <em>At‑A‑Boy Wall</em> with daily wins plus a “Cash in field / Draws ready / Change orders unbilled” mini‑scoreboard.</li>
-        </ul>
-        <p>Live demo flow: mark a job as approved change order → see the tile flag “invoice not sent” → click to send invoice → watch the scoreboard update.</p>
-        <p><a href="remodeler-command-center.html" class="btn btn-secondary">View Remodeler Command Center Demo</a></p>
+        <h2>Want one built for your business?</h2>
+        <p>We wire it live in front of you — your data, your workflow, your Command Center.<br>If it doesn't earn its keep in the first month, we stop right there.</p>
+        <a href="mailto:Nunyafbusiness@icloud.com?subject=Command%20Center%20%2F%20US%20Payments&body=Hi%20Chuck%2C%0A%0AI%E2%80%99d%20like%20to%20talk%20about%20getting%20a%20Command%20Center%20built%20for%20my%20business.%0A%0A-%20" class="btn btn-primary">Email Chuck →</a>
       </div>
     </section>
   </main>
 
-  <footer class="footer">
+  <footer class="footer cc-footer">
     <div class="container">
       <p>© <span id="year"></span> US Payments. All rights reserved.</p>
+      <p>Built by Nunya F. Business on OpenClaw.</p>
     </div>
   </footer>
 
