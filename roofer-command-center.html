@@ -1,343 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Roofer Command Center – Storm & Shingles</title>
-  <style>
-    :root {
-      --bg: #020617;
-      --card: #020617;
-      --border: #1f2937;
-      --accent: #fbbf24; /* amber */
-      --accent-red: #ef4444;
-      --accent-green: #22c55e;
-      --text: #e5e7eb;
-      --muted: #9ca3af;
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-      background:
-        radial-gradient(circle at top left, rgba(30,64,175,0.3), transparent 55%),
-        radial-gradient(circle at bottom right, rgba(15,23,42,0.9), #020617);
-      color: var(--text);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-    .app-shell { display:flex; flex-direction:column; min-height:100vh; padding:24px; gap:16px; }
-    header.app-header { display:flex; justify-content:space-between; align-items:center; }
-    .app-title h1 { margin:0; font-size:24px; letter-spacing:0.08em; text-transform:uppercase; }
-    .app-title span { font-size:12px; color:var(--muted); }
-    .app-right { display:flex; align-items:center; gap:16px; font-size:12px; color:var(--muted); }
-    .streak-pill { padding:6px 12px; border-radius:999px; background:rgba(250,204,21,0.12); border:1px solid rgba(250,204,21,0.7); color:#facc15; display:flex; align-items:center; gap:6px; }
-    .user-chip { display:flex; align-items:center; gap:8px; padding:4px 10px; border-radius:999px; background:rgba(15,23,42,0.9); border:1px solid rgba(148,163,184,0.8); }
-    .avatar { width:26px; height:26px; border-radius:50%; background: radial-gradient(circle at 20% 0, #fbbf24, #0f172a); display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:600; border:1px solid rgba(250,204,21,0.9); }
-    .badge-tag { font-size:11px; padding:3px 8px; border-radius:999px; border:1px solid rgba(148,163,184,0.8); color:#e5e7eb; background:rgba(15,23,42,0.8); }
-    .layout { flex:1; display:grid; grid-template-columns:1.1fr 1.3fr 0.9fr; gap:16px; min-height:0; }
-    .column { display:flex; flex-direction:column; gap:12px; min-height:0; }
-    .column h2 { margin:0; font-size:13px; text-transform:uppercase; letter-spacing:0.12em; color:var(--muted); }
-    .card { background: radial-gradient(circle at top left, rgba(15,23,42,0.98), rgba(3,7,18,0.98)); border-radius:16px; border:1px solid rgba(31,41,55,0.9); box-shadow:0 18px 45px rgba(15,23,42,0.95); padding:16px 18px; }
-    .card.hero { position:relative; overflow:hidden; }
-    .card.hero::after { content:""; position:absolute; inset:0; background: radial-gradient(circle at top left, rgba(250,204,21,0.32), transparent 55%); pointer-events:none; }
-    .hero-inner { position:relative; z-index:1; }
-    .hero-title { font-size:16px; font-weight:600; margin-bottom:4px; }
-    .hero-sub { font-size:13px; color:var(--muted); margin-bottom:12px; }
-    .btn-primary { display:inline-flex; align-items:center; justify-content:center; gap:6px; padding:8px 16px; border-radius:999px; border:none; cursor:default; background:linear-gradient(135deg,#fbbf24,#f97316); color:#0f172a; font-size:13px; font-weight:600; box-shadow:0 12px 30px rgba(15,23,42,0.95); }
-    .btn-primary span.icon { font-size:14px; }
-    .pill { display:inline-flex; align-items:center; gap:6px; padding:4px 10px; border-radius:999px; background:rgba(15,23,42,0.9); border:1px solid rgba(148,163,184,0.8); font-size:11px; color:var(--muted); }
-    .tasks { display:flex; flex-direction:column; gap:8px; margin-top:10px; }
-    .task-card { background:var(--card); border-radius:12px; border:1px solid rgba(31,41,55,0.9); padding:10px 12px; display:flex; flex-direction:column; gap:4px; }
-    .task-header { display:flex; align-items:center; justify-content:space-between; gap:8px; }
-    .task-title { font-size:13px; display:flex; align-items:center; gap:6px; }
-    .task-meta { font-size:11px; color:var(--muted); display:flex; gap:8px; }
-    .chip { border-radius:999px; padding:2px 8px; font-size:10px; border:1px solid rgba(148,163,184,0.8); color:#e5e7eb; }
-    .chip.storm { border-color:rgba(248,113,113,0.9); color:#fecaca; }
-    .chip.inspect { border-color:rgba(96,165,250,0.9); color:#bfdbfe; }
-    .chip.admin { border-color:rgba(250,204,21,0.9); color:#facc15; }
-    .progress-bar { margin-top:10px; display:flex; flex-direction:column; gap:4px; font-size:11px; color:var(--muted); }
-    .progress-track { display:flex; gap:3px; }
-    .progress-segment { flex:1; height:6px; border-radius:999px; background:#020617; }
-    .progress-segment.filled { background:linear-gradient(90deg,#fbbf24,#f97316); }
-    .episodes-column .card { padding:12px 14px 14px; }
-    .stage-header { display:flex; justify-content:space-between; align-items:center; font-size:11px; text-transform:uppercase; letter-spacing:0.12em; color:var(--muted); margin-bottom:6px; }
-    .stage-name { color:#f9fafb; }
-    .tiles-row { display:flex; gap:8px; overflow-x:auto; padding-bottom:2px; }
-    .tile { min-width:160px; background:var(--card); border-radius:14px; border:1px solid rgba(31,41,55,0.9); padding:8px 9px; display:flex; flex-direction:column; gap:4px; box-shadow:0 10px 24px rgba(15,23,42,0.95); }
-    .tile-top { display:flex; justify-content:space-between; align-items:center; font-size:12px; }
-    .tile-name { font-weight:500; }
-    .tile-tag { font-size:10px; color:var(--muted); border-radius:999px; border:1px solid rgba(148,163,184,0.8); padding:2px 6px; }
-    .tile-detail { font-size:11px; color:var(--muted); }
-    .tile-status { font-size:10px; color:var(--accent-green); display:inline-flex; align-items:center; gap:4px; margin-top:2px; }
-    .note { font-size:11px; color:var(--muted); margin-top:6px; }
-    .badge-row { display:flex; flex-wrap:wrap; gap:6px; margin-top:6px; font-size:11px; }
-    .badge { padding:4px 8px; border-radius:999px; background:rgba(15,23,42,0.9); border:1px solid rgba(148,163,184,0.8); }
-    .wins-card ul { list-style:none; padding:0; margin:6px 0 0; font-size:12px; color:var(--muted); }
-    .wins-card li::before { content:"•"; color:var(--accent); display:inline-block; width:10px; margin-left:0; }
-
-    .hail-map-card {
-      margin-top: 4px;
-    }
-
-    .hail-map-visual {
-      margin-top: 10px;
-      border-radius: 12px;
-      border: 1px solid rgba(148,163,184,0.7);
-      height: 120px;
-      background-image:
-        linear-gradient(0deg, rgba(15,23,42,0.85), rgba(15,23,42,0.85)),
-        radial-gradient(circle at 20% 30%, rgba(252,211,77,0.4), transparent 55%),
-        radial-gradient(circle at 70% 40%, rgba(56,189,248,0.35), transparent 55%),
-        radial-gradient(circle at 40% 75%, rgba(248,113,113,0.4), transparent 55%);
-      background-blend-mode: screen;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hail-map-visual::after {
-      content: "STORM PATH";
-      position: absolute;
-      bottom: 6px;
-      right: 10px;
-      font-size: 10px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: rgba(249,250,251,0.8);
-    }
-
-    @media (max-width:900px){ .layout{grid-template-columns:1fr;} }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roofer Command Center</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f4f4f4; }
+        .dashboard-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .panel { background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        h2 { color: #333; }
+        .status-indicator { width: 20px; height: 20px; border-radius: 50%; display: inline-block; margin-right: 10px; }
+        .status-clear { background-color: green; }
+        .status-watch { background-color: yellow; }
+        .status-hail { background-color: red; }
+        .button {
+            background-color: #007bff;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        .button:hover { background-color: #0056b3; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+            color: white;
+            text-transform: uppercase;
+        }
+        .badge-draft { background-color: #6c757d; }
+        .badge-submitted { background-color: #007bff; }
+        .badge-approved { background-color: #28a745; }
+    </style>
 </head>
 <body>
-  <div class="app-shell">
-    <header class="app-header">
-      <div class="app-title">
-        <h1>Roofer Command Center</h1>
-        <span>Leads · Builds · Storm Board · At‑A‑Boy Wall</span>
-      </div>
-      <div class="app-right">
-        <div class="streak-pill">
-          <span>On a roll · 7 days</span>
-        </div>
-        <div class="user-chip">
-          <div class="avatar">RC</div>
-          <span>Redline Roofing</span>
-        </div>
-        <span class="badge-tag">Resi &amp; Light Commercial · Tulsa</span>
-      </div>
-    </header>
+    <h1>Roofer Command Center Dashboard</h1>
 
-    <div class="layout">
-      <!-- Left: Today’s Script -->
-      <div class="column">
-        <h2>Today’s Script</h2>
-        <div class="card hero">
-          <div class="hero-inner">
-            <div class="hero-title">Today’s Script</div>
-            <div class="hero-sub">Storms put half the city on your phone. Three hot leads, two builds that can’t slip, one adjuster you don’t want to piss off. Clear this and you sleep tonight.</div>
-            <button class="btn-primary">
-              <span class="icon">▶</span>
-              <span>Start my script</span>
-            </button>
-            <div class="pill" style="margin-top:10px;">
-              <span>One roof at a time. No missed adjusters. No unpaid extras.</span>
+    <div class="dashboard-container">
+        <!-- Storm Alert Panel -->
+        <div class="panel">
+            <h2>Storm Alert</h2>
+            <div>
+                <span class="status-indicator status-hail"></span> <strong>Hail Detected!</strong>
             </div>
-          </div>
-        </div>
+            <p>Last checked: 2026-03-05 14:30 CST</p>
+            <p><strong>23</strong> customers in impact zone.</p>
+            <button class="button">View Storm Details</button>
 
-        <div class="tasks">
-          <div class="task-card">
-            <div class="task-header">
-              <div class="task-title">
-                <span>📞</span>
-                <span>Call Martinez – fresh storm lead</span>
-              </div>
-              <span class="chip storm">Lead · ~7 min</span>
-            </div>
-            <div class="task-meta">
-              <span>Schedule inspect before another roofer knocks their door</span>
-            </div>
-          </div>
-          <div class="task-card">
-            <div class="task-header">
-              <div class="task-title">
-                <span>🧱</span>
-                <span>Check crew start on Oak Ridge build</span>
-              </div>
-              <span class="chip inspect">Crew · ~5 min</span>
-            </div>
-            <div class="task-meta">
-              <span>Confirm tear‑off, dumpster, and materials are all actually on site</span>
-            </div>
-          </div>
-          <div class="task-card">
-            <div class="task-header">
-              <div class="task-title">
-                <span>📎</span>
-                <span>Submit supplement photos for Johnson claim</span>
-              </div>
-              <span class="chip admin">Office · ~15 min</span>
-            </div>
-            <div class="task-meta">
-              <span>Get paid for steep, layers, and decking instead of eating it</span>
-            </div>
-          </div>
+            <h3>Recent Hail Events (Oklahoma)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Location</th>
+                        <th>Hail Size</th>
+                        <th>Customers</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2026-03-04</td>
+                        <td>18:15</td>
+                        <td>Owasso, OK</td>
+                        <td>1.25"</td>
+                        <td>7</td>
+                    </tr>
+                    <tr>
+                        <td>2026-03-03</td>
+                        <td>22:00</td>
+                        <td>Broken Arrow, OK</td>
+                        <td>1.00"</td>
+                        <td>12</td>
+                    </tr>
+                    <tr>
+                        <td>2026-03-02</td>
+                        <td>15:40</td>
+                        <td>Jenks, OK</td>
+                        <td>0.75"</td>
+                        <td>4</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Quick Stats: Storms this season: 12 | Customers alerted: 145 | Inspections scheduled: 87</p>
         </div>
 
-        <div class="card" style="margin-top:2px;">
-          <div class="progress-bar">
-            <div>Today’s Script: <strong>3 / 7</strong> complete</div>
-            <div class="progress-track">
-              <div class="progress-segment filled"></div>
-              <div class="progress-segment filled"></div>
-              <div class="progress-segment filled"></div>
-              <div class="progress-segment"></div>
-              <div class="progress-segment"></div>
-              <div class="progress-segment"></div>
-              <div class="progress-segment"></div>
-            </div>
-            <div class="note">At‑A‑Boy. The day feels a lot less like you’re chasing storms.</div>
-          </div>
-        </div>
-      </div>
+        <!-- Xactimate Supplement Panel -->
+        <div class="panel">
+            <h2>Xactimate Supplement</h2>
+            <button class="button">Draft New Supplement</button>
 
-      <!-- Middle: Storm Board -->
-      <div class="column episodes-column">
-        <h2>Storm & Jobs Board</h2>
-
-        <div class="card">
-          <div class="stage-header">
-            <span class="stage-name">Hot Leads</span>
-            <span>3 roofs</span>
-          </div>
-          <div class="tiles-row">
-            <div class="tile">
-              <div class="tile-top">
-                <span class="tile-name">Martinez – Hail</span>
-                <span class="tile-tag">Adjuster not set</span>
-              </div>
-              <div class="tile-detail">Shingle bruising · neighbor already approved</div>
-              <div class="tile-status">● Knock this one in person this afternoon</div>
-            </div>
-            <div class="tile">
-              <div class="tile-top">
-                <span class="tile-name">Lee – Wind</span>
-                <span class="tile-tag">Open ridge</span>
-              </div>
-              <div class="tile-detail">Missing caps · active leak in hall</div>
-              <div class="tile-status">● Temporary dry‑in today if possible</div>
-            </div>
-            <div class="tile">
-              <div class="tile-top">
-                <span class="tile-name">Owens – Old 3‑tab</span>
-                <span class="tile-tag">Retail</span>
-              </div>
-              <div class="tile-detail">No storm claim · cash job potential</div>
-              <div class="tile-status">● Upsell to upgrade and ventilation</div>
-            </div>
-          </div>
+            <h3>Recent Supplements</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Customer</th>
+                        <th>Event Date</th>
+                        <th>Status</th>
+                        <th>Last Updated</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>John Doe (Owasso)</td>
+                        <td>2026-03-04</td>
+                        <td><span class="badge badge-submitted">Submitted</span></td>
+                        <td>2026-03-05</td>
+                    </tr>
+                    <tr>
+                        <td>Jane Smith (Broken Arrow)</td>
+                        <td>2026-03-03</td>
+                        <td><span class="badge badge-approved">Approved</span></td>
+                        <td>2026-03-04</td>
+                    </tr>
+                    <tr>
+                        <td>Bob Johnson (Jenks)</td>
+                        <td>2026-03-02</td>
+                        <td><span class="badge badge-draft">Draft</span></td>
+                        <td>2026-03-03</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
 
-        <div class="card">
-          <div class="stage-header">
-            <span class="stage-name">In Production</span>
-            <span>2 jobs</span>
-          </div>
-          <div class="tiles-row">
-            <div class="tile">
-              <div class="tile-top">
-                <span class="tile-name">Oak Ridge – Full Replace</span>
-                <span class="tile-tag">Day 1 / 2</span>
-              </div>
-              <div class="tile-detail">Tear‑off today, install tomorrow</div>
-              <div class="tile-status">● Check crew photos & mid‑job clean‑up</div>
-            </div>
-            <div class="tile">
-              <div class="tile-top">
-                <span class="tile-name">Harris – Repair</span>
-                <span class="tile-tag">Half day</span>
-              </div>
-              <div class="tile-detail">Pipe boot and flashing repair</div>
-              <div class="tile-status">● Make sure tech gets before/after shots</div>
-            </div>
-          </div>
+        <!-- Existing panel 1 (placeholder) -->
+        <div class="panel">
+            <h2>Current Projects</h2>
+            <p>Project A: In Progress</p>
+            <p>Project B: Pending Start</p>
         </div>
 
-        <!-- Hail map visual under In Production -->
-        <div class="card hail-map-card">
-          <div class="hero-title">Hail Map – Tulsa Metro</div>
-          <p class="note">Where the phones should be ringing today.</p>
-          <div class="hail-map-visual"></div>
-        </div>
-      </div>
-
-      <!-- Right: At-A-Boy Wall -->
-      <div class="column">
-        <h2>At‑A‑Boy Wall</h2>
-
-        <div class="card wins-card">
-          <div class="hero-title">Today’s Wins</div>
-          <ul>
-            <li>3 hot storm leads contacted same day</li>
-            <li>2 jobs in production with no surprises (yet)</li>
-            <li>Supplements submitted before carrier "closes the file"</li>
-          </ul>
-          <p class="note">This is how you stop being "just another roofer" and start being the one people remember.</p>
+        <!-- Existing panel 2 (placeholder) -->
+        <div class="panel">
+            <h2>Upcoming Inspections</h2>
+            <p>Today: 3 inspections</p>
+            <p>Tomorrow: 2 inspections</p>
         </div>
 
-        <div class="card wins-card">
-          <div class="hero-title">Today’s Wins</div>
-          <ul>
-            <li>3 hot storm leads contacted same day</li>
-            <li>2 jobs in production with no surprises (yet)</li>
-            <li>Supplements submitted before carrier "closes the file"</li>
-          </ul>
-          <p class="note">This is how you stop being "just another roofer" and start being the one people remember.</p>
-        </div>
-
-        <div class="card">
-          <div class="hero-title">Streaks &amp; Badges</div>
-          <p class="note">Roofing is chaos. You’re stacking days where you’re driving it, not the weather.</p>
-          <div class="badge-row">
-            <span class="badge">On a roll · 7 days</span>
-            <span class="badge">Zero Missed Adjusters</span>
-            <span class="badge">Supplement King</span>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="hero-title">Scoreboard</div>
-          <ul class="wins-card">
-            <li>Active jobs: <strong>5</strong></li>
-            <li>Storm leads this week: <strong>14</strong></li>
-            <li>Adjuster meetings set: <strong>4</strong></li>
-            <li>Unsubmitted supplements: <strong>0</strong></li>
-          </ul>
-          <p class="note">You keep this tight, and the rest (crews, cash, and reputation) follows.</p>
-        </div>
-      </div>
     </div>
-    <!-- Plain English explainer CTA -->
-    <div class="card" style="margin-top:18px;">
-      <button style="all:unset; display:block; width:100%; cursor:default;">
-        <div style="display:flex; flex-direction:column; gap:8px; align-items:flex-start; text-align:left;">
-          <div style="font-size:13px; text-transform:uppercase; letter-spacing:0.12em; color:var(--muted);">
-            What this is (in plain English)
-          </div>
-          <div style="font-size:13px; color:var(--text); line-height:1.6;">
-            This is a mockup of a <strong>Roofer Storm Board / Control Center.</strong> Instead of you trying to remember every lead, build, and supplement from your head and texts, this screen says:
-            <strong>"Hit these few roofs, calls, and adjusters today and the storm money actually lands."</strong>
-            Every job shows up like an episode, so you can see whats waiting on you, on the crew, on the carrier, or on the homeowner.
-            Behind the scenes, it keeps simple checklists so photos, docs, and supplements are done before the carrier closes the file.
-            <br /><br />
-            If something like this lived on the laptop in your truck or office, would you pull it up between jobs? What would you change so it feels like your roofing company, not a software demo?
-          </div>
-        </div>
-      </button>
-    </div>
-  </div>
+
 </body>
 </html>
