@@ -1,10 +1,10 @@
-&lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;en&quot;&gt;
-&lt;head&gt;
-  &lt;meta charset=&quot;UTF-8&quot;&gt;
-  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
-  &lt;title&gt;Roofer Command Center&lt;/title&gt;
-  &lt;style&gt;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roofer Command Center</title>
+  <style>
     :root {
       --bg: #1a1e2e;
       --card: #242a3d;
@@ -67,173 +67,173 @@
     .day-box.severe { border: 1px solid var(--red); }
     .schedule-item { margin-bottom: 8px; font-size: 13px; }
     .crew-item { margin-bottom: 8px; font-size: 13px; }
-  &lt;/style&gt;
-&lt;/head&gt;
-&lt;body style=&quot;margin:0; background:var(--bg); color:var(--text); font-family:-apple-system,system-ui,sans-serif; padding:24px;&quot;&gt;
+  </style>
+</head>
+<body style="margin:0; background:var(--bg); color:var(--text); font-family:-apple-system,system-ui,sans-serif; padding:24px;">
 
-  &lt;!-- ALERT BANNER --&gt;
-  &lt;div style=&quot;background:linear-gradient(90deg,#c0392b,#e67e22); padding:14px 24px; border-radius:12px; margin-bottom:20px; display:flex; justify-content:space-between; align-items:center;&quot;&gt;
-    &lt;span style=&quot;font-size:15px; font-weight:600;&quot;&gt;⚠️ HAIL ALERT: 1.75&quot; hail detected near Owasso, OK — 23 customers in impact zone&lt;/span&gt;
-    &lt;span style=&quot;font-size:13px; opacity:0.8; cursor:pointer;&quot;&gt;View Details →&lt;/span&gt;
-  &lt;/div&gt;
+  <!-- ALERT BANNER -->
+  <div style="background:linear-gradient(90deg,#c0392b,#e67e22); padding:14px 24px; border-radius:12px; margin-bottom:20px; display:flex; justify-content:space-between; align-items:center;">
+    <span style="font-size:15px; font-weight:600;">⚠️ HAIL ALERT: 1.75" hail detected near Owasso, OK — 23 customers in impact zone</span>
+    <span style="font-size:13px; opacity:0.8; cursor:pointer;">View Details →</span>
+  </div>
 
-  &lt;!-- HEADER --&gt;
-  &lt;div style=&quot;display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;&quot;&gt;
-    &lt;div&gt;
-      &lt;h1 style=&quot;margin:0; font-size:26px;&quot;&gt;Roofer Command Center&lt;/h1&gt;
-      &lt;p style=&quot;margin:4px 0 0; color:var(--muted); font-size:14px;&quot;&gt;Redline Roofing · Tulsa Metro · Demo Dashboard&lt;/p&gt;
-    &lt;/div&gt;
-    &lt;div style=&quot;color:var(--muted); font-size:13px;&quot;&gt;Last updated: Mar 5, 2026 · 2:30 PM CST&lt;/div&gt;
-  &lt;/div&gt;
+  <!-- HEADER -->
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+    <div>
+      <h1 style="margin:0; font-size:26px;">Roofer Command Center</h1>
+      <p style="margin:4px 0 0; color:var(--muted); font-size:14px;">Redline Roofing · Tulsa Metro · Demo Dashboard</p>
+    </div>
+    <div style="color:var(--muted); font-size:13px;">Last updated: Mar 5, 2026 · 2:30 PM CST</div>
+  </div>
 
-  &lt;!-- METRIC CARDS: 4 across --&gt;
-  &lt;div style=&quot;display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:20px;&quot;&gt;
-    &lt;div style=&quot;background:var(--card); border-radius:14px; padding:20px; border:1px solid var(--card-border);&quot;&gt;
-      &lt;h3 data-tip=&quot;📊 Connects to QuickBooks or Jobber for real-time revenue, outstanding payments, and job profitability.&quot;&gt;Revenue This Month&lt;/h3&gt;
-      &lt;div class=&quot;metric-big&quot;&gt;$127,450&lt;/div&gt;
-      &lt;div class=&quot;metric-small green&quot;&gt;↑ 12% vs last month&lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div style=&quot;background:var(--card); border-radius:14px; padding:20px; border:1px solid var(--card-border);&quot;&gt;
-      &lt;h3 data-tip=&quot;🔨 Syncs with your job management tool to show active projects, crew assignments, and completion status.&quot;&gt;Active Jobs&lt;/h3&gt;
-      &lt;div class=&quot;metric-big&quot;&gt;14&lt;/div&gt;
-      &lt;div class=&quot;metric-small&quot;&gt;3 installs · 8 inspections · 3 repairs&lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div style=&quot;background:var(--card); border-radius:14px; padding:20px; border:1px solid var(--card-border);&quot;&gt;
-      &lt;h3 data-tip=&quot;🔗 NOAA Storm Prediction Center (free) or HailTrace (premium) monitors your service area 24/7 and alerts you when customers are in the impact zone.&quot;&gt;Storm Alerts&lt;/h3&gt;
-      &lt;div class=&quot;metric-big&quot;&gt;8 events&lt;/div&gt;
-      &lt;div class=&quot;metric-small&quot;&gt;145 customers alerted this season&lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div style=&quot;background:var(--card); border-radius:14px; padding:20px; border:1px solid var(--card-border);&quot;&gt;
-      &lt;h3 data-tip=&quot;💰 Tracks the total value of insurance supplements in your pipeline. When connected, pulls real claim status — Draft → Submitted → Approved → Paid.&quot;&gt;Outstanding Supplements&lt;/h3&gt;
-      &lt;div class=&quot;metric-big&quot;&gt;$342,800&lt;/div&gt;
-      &lt;div class=&quot;metric-small&quot;&gt;7 pending · 2 approved this week&lt;/div&gt;
-    &lt;/div&gt;
-  &lt;/div&gt;
+  <!-- METRIC CARDS: 4 across -->
+  <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:20px;">
+    <div style="background:var(--card); border-radius:14px; padding:20px; border:1px solid var(--card-border);">
+      <h3 data-tip="📊 Connects to QuickBooks or Jobber for real-time revenue, outstanding payments, and job profitability.">Revenue This Month</h3>
+      <div class="metric-big">$127,450</div>
+      <div class="metric-small green">↑ 12% vs last month</div>
+    </div>
+    <div style="background:var(--card); border-radius:14px; padding:20px; border:1px solid var(--card-border);">
+      <h3 data-tip="🔨 Syncs with your job management tool to show active projects, crew assignments, and completion status.">Active Jobs</h3>
+      <div class="metric-big">14</div>
+      <div class="metric-small">3 installs · 8 inspections · 3 repairs</div>
+    </div>
+    <div style="background:var(--card); border-radius:14px; padding:20px; border:1px solid var(--card-border);">
+      <h3 data-tip="🔗 NOAA Storm Prediction Center (free) or HailTrace (premium) monitors your service area 24/7 and alerts you when customers are in the impact zone.">Storm Alerts</h3>
+      <div class="metric-big">8 events</div>
+      <div class="metric-small">145 customers alerted this season</div>
+    </div>
+    <div style="background:var(--card); border-radius:14px; padding:20px; border:1px solid var(--card-border);">
+      <h3 data-tip="💰 Tracks the total value of insurance supplements in your pipeline. When connected, pulls real claim status — Draft → Submitted → Approved → Paid.">Outstanding Supplements</h3>
+      <div class="metric-big">$342,800</div>
+      <div class="metric-small">7 pending · 2 approved this week</div>
+    </div>
+  </div>
 
-  &lt;!-- MAIN 3-COLUMN GRID --&gt;
-  &lt;div style=&quot;display:grid; grid-template-columns:1fr 1.2fr 0.9fr; gap:16px;&quot;&gt;
+  <!-- MAIN 3-COLUMN GRID -->
+  <div style="display:grid; grid-template-columns:1fr 1.2fr 0.9fr; gap:16px;">
 
-    &lt;!-- LEFT COLUMN --&gt;
-    &lt;div style=&quot;display:flex; flex-direction:column; gap:16px;&quot;&gt;
+    <!-- LEFT COLUMN -->
+    <div style="display:flex; flex-direction:column; gap:16px;">
       
-      &lt;!-- STORM MONITOR --&gt;
-      &lt;div class=&quot;card&quot;&gt;
-        &lt;h3 data-tip=&quot;🔗 Connects to NOAA (free) or HailTrace Enterprise. Cross-references hail impact coordinates with your customer database to generate prioritized call lists sorted by proximity, roof age, and warranty status.&quot;&gt;🔴 Storm Monitor&lt;/h3&gt;
+      <!-- STORM MONITOR -->
+      <div class="card">
+        <h3 data-tip="🔗 Connects to NOAA (free) or HailTrace Enterprise. Cross-references hail impact coordinates with your customer database to generate prioritized call lists sorted by proximity, roof age, and warranty status.">🔴 Storm Monitor</h3>
         
-        &lt;div data-tip=&quot;🗺️ With HailTrace Enterprise, this shows real-time hail swath mapping overlaid on your customer locations. Free tier uses NOAA point data on an interactive Leaflet map.&quot; style=&quot;background:#1a1e2e; height:160px; border-radius:10px; display:flex; align-items:center; justify-content:center; margin:12px 0; border:1px dashed #3a4560; color:var(--muted); font-size:13px; text-align:center;&quot;&gt;
-          Interactive Hail Map&lt;br&gt;Leaflet.js + Customer Pins&lt;br&gt;&lt;span style=&quot;font-size:11px;&quot;&gt;Hover for details&lt;/span&gt;
-        &lt;/div&gt;
+        <div data-tip="🗺️ With HailTrace Enterprise, this shows real-time hail swath mapping overlaid on your customer locations. Free tier uses NOAA point data on an interactive Leaflet map." style="background:#1a1e2e; height:160px; border-radius:10px; display:flex; align-items:center; justify-content:center; margin:12px 0; border:1px dashed #3a4560; color:var(--muted); font-size:13px; text-align:center;">
+          Interactive Hail Map<br>Leaflet.js + Customer Pins<br><span style="font-size:11px;">Hover for details</span>
+        </div>
         
-        &lt;table&gt;
-          &lt;tr&gt;&lt;th&gt;Time&lt;/th&gt;&lt;th&gt;Location&lt;/th&gt;&lt;th&gt;Size&lt;/th&gt;&lt;th&gt;Customers Affected&lt;/th&gt;&lt;/tr&gt;
-          &lt;tr&gt;&lt;td&gt;14:30&lt;/td&gt;&lt;td&gt;Owasso&lt;/td&gt;&lt;td&gt;1.75&quot;&lt;/td&gt;&lt;td&gt;12&lt;/td&gt;&lt;/tr&gt;
-          &lt;tr&gt;&lt;td&gt;13:15&lt;/td&gt;&lt;td&gt;Broken Arrow&lt;/td&gt;&lt;td&gt;1.25&quot;&lt;/td&gt;&lt;td&gt;8&lt;/td&gt;&lt;/tr&gt;
-          &lt;tr&gt;&lt;td&gt;12:40&lt;/td&gt;&lt;td&gt;Sand Springs&lt;/td&gt;&lt;td&gt;1.50&quot;&lt;/td&gt;&lt;td&gt;5&lt;/td&gt;&lt;/tr&gt;
-          &lt;tr&gt;&lt;td&gt;11:20&lt;/td&gt;&lt;td&gt;Jenks&lt;/td&gt;&lt;td&gt;1.00&quot;&lt;/td&gt;&lt;td&gt;4&lt;/td&gt;&lt;/tr&gt;
-          &lt;tr&gt;&lt;td&gt;10:05&lt;/td&gt;&lt;td&gt;Bixby&lt;/td&gt;&lt;td&gt;0.75&quot;&lt;/td&gt;&lt;td&gt;2&lt;/td&gt;&lt;/tr&gt;
-        &lt;/table&gt;
+        <table>
+          <tr><th>Time</th><th>Location</th><th>Size</th><th>Customers Affected</th></tr>
+          <tr><td>14:30</td><td>Owasso</td><td>1.75"</td><td>12</td></tr>
+          <tr><td>13:15</td><td>Broken Arrow</td><td>1.25"</td><td>8</td></tr>
+          <tr><td>12:40</td><td>Sand Springs</td><td>1.50"</td><td>5</td></tr>
+          <tr><td>11:20</td><td>Jenks</td><td>1.00"</td><td>4</td></tr>
+          <tr><td>10:05</td><td>Bixby</td><td>0.75"</td><td>2</td></tr>
+        </table>
         
-        &lt;div style=&quot;display:flex; gap:10px; margin-top:12px;&quot;&gt;
-          &lt;button class=&quot;primary&quot;&gt;Export Call List&lt;/button&gt;
-          &lt;button class=&quot;outline&quot;&gt;View Full Map&lt;/button&gt;
-        &lt;/div&gt;
-      &lt;/div&gt;
+        <div style="display:flex; gap:10px; margin-top:12px;">
+          <button class="primary">Export Call List</button>
+          <button class="outline">View Full Map</button>
+        </div>
+      </div>
 
-      &lt;!-- WEATHER OUTLOOK --&gt;
-      &lt;div class=&quot;card&quot;&gt;
-        &lt;h3 data-tip=&quot;🌦️ Pulls 7-day forecast from NWS Weather API (free). During storm season, highlights days with severe weather potential so you can pre-position crews and materials.&quot;&gt;7-Day Weather&lt;/h3&gt;
-        &lt;div style=&quot;display:grid; grid-template-columns:repeat(7,1fr); gap:6px; margin-top:10px;&quot;&gt;
-          &lt;div class=&quot;day-box today&quot;&gt;Thu&lt;br&gt;⛈️&lt;br&gt;62/48&lt;/div&gt;
-          &lt;div class=&quot;day-box&quot;&gt;Fri&lt;br&gt;🌤️&lt;br&gt;58/44&lt;/div&gt;
-          &lt;div class=&quot;day-box severe&quot;&gt;Sat&lt;br&gt;⛈️&lt;br&gt;68/52&lt;br&gt;⚠️ SEVERE&lt;/div&gt;
-          &lt;div class=&quot;day-box&quot;&gt;Sun&lt;br&gt;☁️&lt;br&gt;55/42&lt;/div&gt;
-          &lt;div class=&quot;day-box&quot;&gt;Mon&lt;br&gt;☀️&lt;br&gt;65/48&lt;/div&gt;
-          &lt;div class=&quot;day-box&quot;&gt;Tue&lt;br&gt;🌤️&lt;br&gt;70/52&lt;/div&gt;
-          &lt;div class=&quot;day-box&quot;&gt;Wed&lt;br&gt;☀️&lt;br&gt;72/54&lt;/div&gt;
-        &lt;/div&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
+      <!-- WEATHER OUTLOOK -->
+      <div class="card">
+        <h3 data-tip="🌦️ Pulls 7-day forecast from NWS Weather API (free). During storm season, highlights days with severe weather potential so you can pre-position crews and materials.">7-Day Weather</h3>
+        <div style="display:grid; grid-template-columns:repeat(7,1fr); gap:6px; margin-top:10px;">
+          <div class="day-box today">Thu<br>⛈️<br>62/48</div>
+          <div class="day-box">Fri<br>🌤️<br>58/44</div>
+          <div class="day-box severe">Sat<br>⛈️<br>68/52<br>⚠️ SEVERE</div>
+          <div class="day-box">Sun<br>☁️<br>55/42</div>
+          <div class="day-box">Mon<br>☀️<br>65/48</div>
+          <div class="day-box">Tue<br>🌤️<br>70/52</div>
+          <div class="day-box">Wed<br>☀️<br>72/54</div>
+        </div>
+      </div>
+    </div>
 
-    &lt;!-- CENTER COLUMN --&gt;
-    &lt;div style=&quot;display:flex; flex-direction:column; gap:16px;&quot;&gt;
+    <!-- CENTER COLUMN -->
+    <div style="display:flex; flex-direction:column; gap:16px;">
       
-      &lt;!-- XACTIMATE SUPPLEMENTS --&gt;
-      &lt;div class=&quot;card&quot;&gt;
-        &lt;h3 data-tip=&quot;📋 AI drafts insurance claim supplements using standard Xactimate line item codes (RFG TEAR, RFG SHNG, RFG FELT, etc.). Roofers with Xactimate can reference codes directly. Without Xactimate, generates a professional PDF supplement for insurance submission.&quot;&gt;Xactimate Supplements&lt;/h3&gt;
+      <!-- XACTIMATE SUPPLEMENTS -->
+      <div class="card">
+        <h3 data-tip="📋 AI drafts insurance claim supplements using standard Xactimate line item codes (RFG TEAR, RFG SHNG, RFG FELT, etc.). Roofers with Xactimate can reference codes directly. Without Xactimate, generates a professional PDF supplement for insurance submission.">Xactimate Supplements</h3>
         
-        &lt;div style=&quot;display:flex; gap:10px; margin:10px 0;&quot;&gt;
-          &lt;span class=&quot;pill draft&quot;&gt;3 Draft&lt;/span&gt;
-          &lt;span class=&quot;pill submitted&quot;&gt;2 Submitted&lt;/span&gt;
-          &lt;span class=&quot;pill approved&quot;&gt;2 Approved&lt;/span&gt;
-        &lt;/div&gt;
+        <div style="display:flex; gap:10px; margin:10px 0;">
+          <span class="pill draft">3 Draft</span>
+          <span class="pill submitted">2 Submitted</span>
+          <span class="pill approved">2 Approved</span>
+        </div>
         
-        &lt;!-- Pipeline bar chart --&gt;
-        &lt;div style=&quot;margin:12px 0;&quot;&gt;
-          &lt;div&gt;Draft &lt;span&gt;$98,200&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;bar&quot; style=&quot;width:28%; background:#6c757d;&quot;&gt;&lt;/div&gt;
-          &lt;div&gt;Submitted &lt;span&gt;$156,400&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;bar&quot; style=&quot;width:46%; background:var(--blue);&quot;&gt;&lt;/div&gt;
-          &lt;div&gt;Approved &lt;span&gt;$88,200&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;bar&quot; style=&quot;width:26%; background:var(--green);&quot;&gt;&lt;/div&gt;
-        &lt;/div&gt;
+        <!-- Pipeline bar chart -->
+        <div style="margin:12px 0;">
+          <div>Draft <span>$98,200</span></div><div class="bar" style="width:28%; background:#6c757d;"></div>
+          <div>Submitted <span>$156,400</span></div><div class="bar" style="width:46%; background:var(--blue);"></div>
+          <div>Approved <span>$88,200</span></div><div class="bar" style="width:26%; background:var(--green);"></div>
+        </div>
         
-        &lt;table&gt;
-          &lt;tr&gt;&lt;th&gt;Customer&lt;/th&gt;&lt;th&gt;Event&lt;/th&gt;&lt;th&gt;Amount&lt;/th&gt;&lt;th&gt;Status&lt;/th&gt;&lt;/tr&gt;
-          &lt;tr&gt;&lt;td&gt;Mike Torres (Owasso)&lt;/td&gt;&lt;td&gt;Mar 4&lt;/td&gt;&lt;td&gt;$18,400&lt;/td&gt;&lt;td&gt;&lt;span class=&quot;badge submitted&quot;&gt;Submitted&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;
-          &lt;tr&gt;&lt;td&gt;Sarah Chen (Broken Arrow)&lt;/td&gt;&lt;td&gt;Mar 3&lt;/td&gt;&lt;td&gt;$24,200&lt;/td&gt;&lt;td&gt;&lt;span class=&quot;badge approved&quot;&gt;Approved&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;
-          &lt;tr&gt;&lt;td&gt;James Wilson (Jenks)&lt;/td&gt;&lt;td&gt;Mar 3&lt;/td&gt;&lt;td&gt;$12,800&lt;/td&gt;&lt;td&gt;&lt;span class=&quot;badge draft&quot;&gt;Draft&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;
-          &lt;tr&gt;&lt;td&gt;Linda Brooks (Sand Springs)&lt;/td&gt;&lt;td&gt;Mar 2&lt;/td&gt;&lt;td&gt;$8,600&lt;/td&gt;&lt;td&gt;&lt;span class=&quot;badge submitted&quot;&gt;Submitted&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;
-          &lt;tr&gt;&lt;td&gt;Tom Hardy (Bixby)&lt;/td&gt;&lt;td&gt;Mar 1&lt;/td&gt;&lt;td&gt;$15,200&lt;/td&gt;&lt;td&gt;&lt;span class=&quot;badge approved&quot;&gt;Approved&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;
-        &lt;/table&gt;
+        <table>
+          <tr><th>Customer</th><th>Event</th><th>Amount</th><th>Status</th></tr>
+          <tr><td>Mike Torres (Owasso)</td><td>Mar 4</td><td>$18,400</td><td><span class="badge submitted">Submitted</span></td></tr>
+          <tr><td>Sarah Chen (Broken Arrow)</td><td>Mar 3</td><td>$24,200</td><td><span class="badge approved">Approved</span></td></tr>
+          <tr><td>James Wilson (Jenks)</td><td>Mar 3</td><td>$12,800</td><td><span class="badge draft">Draft</span></td></tr>
+          <tr><td>Linda Brooks (Sand Springs)</td><td>Mar 2</td><td>$8,600</td><td><span class="badge submitted">Submitted</span></td></tr>
+          <tr><td>Tom Hardy (Bixby)</td><td>Mar 1</td><td>$15,200</td><td><span class="badge approved">Approved</span></td></tr>
+        </table>
         
-        &lt;button class=&quot;primary&quot; style=&quot;margin-top:12px;&quot;&gt;🤖 Draft New Supplement — AI-Powered&lt;/button&gt;
-      &lt;/div&gt;
+        <button class="primary" style="margin-top:12px;">🤖 Draft New Supplement — AI-Powered</button>
+      </div>
 
-      &lt;!-- LEAD PIPELINE --&gt;
-      &lt;div class=&quot;card&quot;&gt;
-        &lt;h3 data-tip=&quot;🔄 Integrates with your CRM to track leads from storm alerts, referrals, and marketing. Follows the journey: lead → inspection → signed contract → in progress → complete.&quot;&gt;Lead Pipeline&lt;/h3&gt;
-        &lt;div&gt;
-          &lt;div&gt;New Leads: 12&lt;/div&gt;&lt;div class=&quot;bar&quot; style=&quot;width:18%; background:var(--orange);&quot;&gt;&lt;/div&gt;
-          &lt;div&gt;Inspection: 8&lt;/div&gt;&lt;div class=&quot;bar&quot; style=&quot;width:12%; background:var(--blue);&quot;&gt;&lt;/div&gt;
-          &lt;div&gt;Contract: 5&lt;/div&gt;&lt;div class=&quot;bar&quot; style=&quot;width:7%; background:var(--light-blue);&quot;&gt;&lt;/div&gt;
-          &lt;div&gt;In Progress: 14&lt;/div&gt;&lt;div class=&quot;bar&quot; style=&quot;width:21%; background:var(--green);&quot;&gt;&lt;/div&gt;
-          &lt;div&gt;Complete: 67&lt;/div&gt;&lt;div class=&quot;bar&quot; style=&quot;width:100%; background:var(--dark-green);&quot;&gt;&lt;/div&gt;
-        &lt;/div&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
+      <!-- LEAD PIPELINE -->
+      <div class="card">
+        <h3 data-tip="🔄 Integrates with your CRM to track leads from storm alerts, referrals, and marketing. Follows the journey: lead → inspection → signed contract → in progress → complete.">Lead Pipeline</h3>
+        <div>
+          <div>New Leads: 12</div><div class="bar" style="width:18%; background:var(--orange);"></div>
+          <div>Inspection: 8</div><div class="bar" style="width:12%; background:var(--blue);"></div>
+          <div>Contract: 5</div><div class="bar" style="width:7%; background:var(--light-blue);"></div>
+          <div>In Progress: 14</div><div class="bar" style="width:21%; background:var(--green);"></div>
+          <div>Complete: 67</div><div class="bar" style="width:100%; background:var(--dark-green);"></div>
+        </div>
+      </div>
+    </div>
 
-    &lt;!-- RIGHT COLUMN --&gt;
-    &lt;div style=&quot;display:flex; flex-direction:column; gap:16px;&quot;&gt;
+    <!-- RIGHT COLUMN -->
+    <div style="display:flex; flex-direction:column; gap:16px;">
       
-      &lt;!-- TODAY'S SCHEDULE --&gt;
-      &lt;div class=&quot;card&quot;&gt;
-        &lt;h3 data-tip=&quot;👷 Syncs with Jobber, ServiceTitan, or Google Calendar to show today's crew assignments, job locations, and material deliveries.&quot;&gt;Today's Schedule&lt;/h3&gt;
-        &lt;div class=&quot;schedule-item&quot;&gt;🔵 8:00 AM — Mike Torres — 742 N Elm, Owasso — Hail Inspection&lt;/div&gt;
-        &lt;div class=&quot;schedule-item&quot;&gt;🟠 9:30 AM — Oak Ridge HOA — 1205 E Main, BA — Full Replace Day 1&lt;/div&gt;
-        &lt;div class=&quot;schedule-item&quot;&gt;🟢 11:00 AM — Johnson Claim — Office — Supplement Meeting&lt;/div&gt;
-        &lt;div class=&quot;schedule-item&quot;&gt;🔵 1:00 PM — Sarah Chen — 408 Maple, Jenks — Re-inspection&lt;/div&gt;
-        &lt;div class=&quot;schedule-item&quot;&gt;🟠 2:30 PM — Harris Repair — 915 Creek Dr, Sand Springs — Flashing Repair&lt;/div&gt;
-      &lt;/div&gt;
+      <!-- TODAY'S SCHEDULE -->
+      <div class="card">
+        <h3 data-tip="👷 Syncs with Jobber, ServiceTitan, or Google Calendar to show today's crew assignments, job locations, and material deliveries.">Today's Schedule</h3>
+        <div class="schedule-item">🔵 8:00 AM — Mike Torres — 742 N Elm, Owasso — Hail Inspection</div>
+        <div class="schedule-item">🟠 9:30 AM — Oak Ridge HOA — 1205 E Main, BA — Full Replace Day 1</div>
+        <div class="schedule-item">🟢 11:00 AM — Johnson Claim — Office — Supplement Meeting</div>
+        <div class="schedule-item">🔵 1:00 PM — Sarah Chen — 408 Maple, Jenks — Re-inspection</div>
+        <div class="schedule-item">🟠 2:30 PM — Harris Repair — 915 Creek Dr, Sand Springs — Flashing Repair</div>
+      </div>
 
-      &lt;!-- CREW STATUS --&gt;
-      &lt;div class=&quot;card&quot;&gt;
-        &lt;h3 data-tip=&quot;📍 Real-time crew GPS tracking. Shows current job location, estimated completion time, and next assignment.&quot;&gt;Crew Status&lt;/h3&gt;
-        &lt;div class=&quot;crew-item&quot;&gt;🟢 Crew A (4 men) — Installing @ Oak Ridge, BA — ETA done 4:30 PM&lt;/div&gt;
-        &lt;div class=&quot;crew-item&quot;&gt;🔵 Crew B (2 men) — Inspecting @ 742 N Elm, Owasso — Next: Jenks @ 1 PM&lt;/div&gt;
-        &lt;div class=&quot;crew-item&quot;&gt;🟡 Crew C (3 men) — En route to Sand Springs — Arriving ~2:15 PM&lt;/div&gt;
-      &lt;/div&gt;
+      <!-- CREW STATUS -->
+      <div class="card">
+        <h3 data-tip="📍 Real-time crew GPS tracking. Shows current job location, estimated completion time, and next assignment.">Crew Status</h3>
+        <div class="crew-item">🟢 Crew A (4 men) — Installing @ Oak Ridge, BA — ETA done 4:30 PM</div>
+        <div class="crew-item">🔵 Crew B (2 men) — Inspecting @ 742 N Elm, Owasso — Next: Jenks @ 1 PM</div>
+        <div class="crew-item">🟡 Crew C (3 men) — En route to Sand Springs — Arriving ~2:15 PM</div>
+      </div>
 
-      &lt;!-- CUSTOMER SATISFACTION --&gt;
-      &lt;div class=&quot;card&quot;&gt;
-        &lt;h3 data-tip=&quot;⭐ Pulls review data from Google Business Profile and tracks NPS scores from post-job surveys. Flags customers who haven't left a review for follow-up.&quot;&gt;Customer Satisfaction&lt;/h3&gt;
-        Google: ⭐ 4.8 (127 reviews)&lt;br&gt;
-        NPS Score: 72&lt;br&gt;
+      <!-- CUSTOMER SATISFACTION -->
+      <div class="card">
+        <h3 data-tip="⭐ Pulls review data from Google Business Profile and tracks NPS scores from post-job surveys. Flags customers who haven't left a review for follow-up.">Customer Satisfaction</h3>
+        Google: ⭐ 4.8 (127 reviews)<br>
+        NPS Score: 72<br>
         3 customers pending review follow-up
-      &lt;/div&gt;
-    &lt;/div&gt;
-  &lt;/div&gt;
+      </div>
+    </div>
+  </div>
 
-  &lt;!-- FOOTER --&gt;
-  &lt;div style=&quot;text-align:center; margin-top:24px; padding:16px; color:var(--muted); font-size:13px;&quot;&gt;
-    Roofer Command Center — Powered by US Payments&lt;br&gt;
-    &lt;span style=&quot;font-size:12px;&quot;&gt;📌 This is a demo with sample data. Your Command Center connects to your real tools and data.&lt;/span&gt;
-  &lt;/div&gt;
-&lt;/body&gt;
-&lt;/html&gt;
+  <!-- FOOTER -->
+  <div style="text-align:center; margin-top:24px; padding:16px; color:var(--muted); font-size:13px;">
+    Roofer Command Center — Powered by US Payments<br>
+    <span style="font-size:12px;">📌 This is a demo with sample data. Your Command Center connects to your real tools and data.</span>
+  </div>
+</body>
+</html>
