@@ -1,151 +1,471 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roofer Command Center</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f4f4f4; }
-        .dashboard-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-        .panel { background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        h2 { color: #333; }
-        .status-indicator { width: 20px; height: 20px; border-radius: 50%; display: inline-block; margin-right: 10px; }
-        .status-clear { background-color: green; }
-        .status-watch { background-color: yellow; }
-        .status-hail { background-color: red; }
-        .button {
-            background-color: #007bff;
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Roofer Command Center&lt;/title&gt;
+    &lt;style&gt;
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a1e2e;
             color: white;
-            padding: 8px 15px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 14px;
-            margin-top: 10px;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
-        .button:hover { background-color: #0056b3; }
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-        th { background-color: #f2f2f2; }
-        .badge {
-            display: inline-block;
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-size: 12px;
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        .alert-banner {
+            background: linear-gradient(to right, #ff0000, #e67e22);
+            padding: 10px;
+            text-align: center;
             font-weight: bold;
-            color: white;
-            text-transform: uppercase;
+            border-radius: 8px;
+            margin-bottom: 20px;
         }
-        .badge-draft { background-color: #6c757d; }
-        .badge-submitted { background-color: #007bff; }
-        .badge-approved { background-color: #28a745; }
-    </style>
-</head>
-<body>
-    <h1>Roofer Command Center Dashboard</h1>
+        .metric-cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .card {
+            background-color: #242a3d;
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        .main-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            flex-grow: 1;
+        }
+        .panel {
+            background-color: #242a3d;
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+        .panel h2 {
+            margin-top: 0;
+            position: relative;
+            display: inline-block;
+        }
+        .panel h2[data-tip] {
+            cursor: help;
+        }
+        .panel h2[data-tip]:hover::before {
+            content: attr(data-tip);
+            position: absolute;
+            top: -100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #111;
+            color: white;
+            padding: 10px;
+            border-radius: 4px;
+            max-width: 320px;
+            width: max-content;
+            z-index: 10;
+            font-size: 14px;
+            text-align: left;
+        }
+        .panel h2[data-tip]:hover::after {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 5px;
+            border-style: solid;
+            border-color: #111 transparent transparent transparent;
+            z-index: 10;
+        }
+        .placeholder-map {
+            background-color: #1a1e2e;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            position: relative;
+        }
+        .placeholder-map[data-tip] {
+            cursor: help;
+        }
+        .placeholder-map[data-tip]:hover::before {
+            content: attr(data-tip);
+            position: absolute;
+            top: -100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #111;
+            color: white;
+            padding: 10px;
+            border-radius: 4px;
+            max-width: 320px;
+            width: max-content;
+            z-index: 10;
+            font-size: 14px;
+            text-align: left;
+        }
+        .placeholder-map[data-tip]:hover::after {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 5px;
+            border-style: solid;
+            border-color: #111 transparent transparent transparent;
+            z-index: 10;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 10px;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #4a6fa5;
+        }
+        .button {
+            background-color: #e67e22;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        .weather-days {
+            display: flex;
+            justify-content: space-between;
+        }
+        .weather-day {
+            background-color: #1a1e2e;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            width: 12%;
+        }
+        .severe {
+            border: 2px solid #ff0000;
+        }
+        .pills {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .pill {
+            background-color: #4a6fa5;
+            padding: 5px 10px;
+            border-radius: 16px;
+        }
+        .pipeline-bar {
+            display: flex;
+            height: 20px;
+            margin-bottom: 10px;
+        }
+        .bar-segment {
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+        .draft { background-color: gray; width: 28%; }
+        .submitted { background-color: blue; width: 45%; }
+        .approved { background-color: green; width: 27%; }
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 16px;
+            color: white;
+        }
+        .badge-draft { background-color: gray; }
+        .badge-submitted { background-color: blue; }
+        .badge-approved { background-color: green; }
+        .funnel {
+            display: flex;
+            height: 50px;
+            margin-bottom: 10px;
+        }
+        .funnel-stage {
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+            padding: 5px;
+        }
+        .new-leads { background-color: #4a6fa5; width: 15%; }
+        .inspection { background-color: #4a6fa5; width: 10%; }
+        .contract { background-color: #4a6fa5; width: 8%; }
+        .in-progress { background-color: #e67e22; width: 25%; }
+        .complete { background-color: green; width: 42%; }
+        .schedule-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .blue { background-color: blue; }
+        .orange { background-color: #e67e22; }
+        .green { background-color: green; }
+        .yellow { background-color: yellow; }
+        .crew-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .satisfaction {
+            text-align: center;
+        }
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #242a3d;
+            border-radius: 8px;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class="container"&gt;
+        &lt;div class="alert-banner"&gt;
+            ⚠️ HAIL ALERT: 1.75" hail detected near Owasso, OK — 23 customers in impact zone
+        &lt;/div&gt;
 
-    <div class="dashboard-container">
-        <!-- Storm Alert Panel -->
-        <div class="panel">
-            <h2>Storm Alert</h2>
-            <div>
-                <span class="status-indicator status-hail"></span> <strong>Hail Detected!</strong>
-            </div>
-            <p>Last checked: 2026-03-05 14:30 CST</p>
-            <p><strong>23</strong> customers in impact zone.</p>
-            <button class="button">View Storm Details</button>
+        &lt;div class="metric-cards"&gt;
+            &lt;div class="card"&gt;
+                &lt;h3 data-tip="📊 Connects to QuickBooks/Jobber for real-time revenue, payments, and job profitability."&gt;Revenue This Month&lt;/h3&gt;
+                $127,450 (↑12%)
+            &lt;/div&gt;
+            &lt;div class="card"&gt;
+                &lt;h3 data-tip="🔨 Syncs with your job management tool to show active projects, crew assignments, and completion status."&gt;Active Jobs&lt;/h3&gt;
+                14
+            &lt;/div&gt;
+            &lt;div class="card"&gt;
+                &lt;h3 data-tip="🔗 NOAA Storm Prediction Center (free) or HailTrace (premium) monitors your area 24/7 for hail events."&gt;Storm Alerts&lt;/h3&gt;
+                8 events / 145 alerted
+            &lt;/div&gt;
+            &lt;div class="card"&gt;
+                &lt;h3 data-tip="💰 Tracks supplement pipeline value. Pulls real claim status: Draft → Submitted → Approved → Paid."&gt;Outstanding Supplements&lt;/h3&gt;
+                $342,800 (7 pending)
+            &lt;/div&gt;
+        &lt;/div&gt;
 
-            <h3>Recent Hail Events (Oklahoma)</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Time</th>
-                        <th>Location</th>
-                        <th>Hail Size</th>
-                        <th>Customers</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>2026-03-04</td>
-                        <td>18:15</td>
-                        <td>Owasso, OK</td>
-                        <td>1.25"</td>
-                        <td>7</td>
-                    </tr>
-                    <tr>
-                        <td>2026-03-03</td>
-                        <td>22:00</td>
-                        <td>Broken Arrow, OK</td>
-                        <td>1.00"</td>
-                        <td>12</td>
-                    </tr>
-                    <tr>
-                        <td>2026-03-02</td>
-                        <td>15:40</td>
-                        <td>Jenks, OK</td>
-                        <td>0.75"</td>
-                        <td>4</td>
-                    </tr>
-                </tbody>
-            </table>
-            <p>Quick Stats: Storms this season: 12 | Customers alerted: 145 | Inspections scheduled: 87</p>
-        </div>
+        &lt;div class="main-grid"&gt;
+            &lt;!-- Left Column --&gt;
+            &lt;div&gt;
+                &lt;div class="panel"&gt;
+                    &lt;h2 data-tip="🔗 Connects to NOAA (free) or HailTrace Enterprise. Cross-references hail coordinates with your customer database to generate prioritized call lists."&gt;Storm Monitor&lt;/h2&gt;
+                    &lt;p&gt;Status: 🔴 Active Hail Event&lt;/p&gt;
+                    &lt;div class="placeholder-map" data-tip="🗺️ HailTrace Enterprise shows real-time hail swaths overlaid on customer locations. Free tier uses NOAA point data."&gt;
+                        Interactive Hail Map — Leaflet.js + Customer Pins
+                    &lt;/div&gt;
+                    &lt;table&gt;
+                        &lt;thead&gt;
+                            &lt;tr&gt;
+                                &lt;th&gt;Location&lt;/th&gt;
+                                &lt;th&gt;Hail Size&lt;/th&gt;
+                                &lt;th&gt;Date&lt;/th&gt;
+                            &lt;/tr&gt;
+                        &lt;/thead&gt;
+                        &lt;tbody&gt;
+                            &lt;tr&gt;
+                                &lt;td&gt;Owasso&lt;/td&gt;
+                                &lt;td&gt;1.75"&lt;/td&gt;
+                                &lt;td&gt;2026-03-05&lt;/td&gt;
+                            &lt;/tr&gt;
+                            &lt;tr&gt;
+                                &lt;td&gt;Broken Arrow&lt;/td&gt;
+                                &lt;td&gt;1.25"&lt;/td&gt;
+                                &lt;td&gt;2026-03-04&lt;/td&gt;
+                            &lt;/tr&gt;
+                            &lt;tr&gt;
+                                &lt;td&gt;Jenks&lt;/td&gt;
+                                &lt;td&gt;1.00"&lt;/td&gt;
+                                &lt;td&gt;2026-03-03&lt;/td&gt;
+                            &lt;/tr&gt;
+                            &lt;tr&gt;
+                                &lt;td&gt;Sand Springs&lt;/td&gt;
+                                &lt;td&gt;1.50"&lt;/td&gt;
+                                &lt;td&gt;2026-03-02&lt;/td&gt;
+                            &lt;/tr&gt;
+                            &lt;tr&gt;
+                                &lt;td&gt;Bixby&lt;/td&gt;
+                                &lt;td&gt;0.75"&lt;/td&gt;
+                                &lt;td&gt;2026-03-01&lt;/td&gt;
+                            &lt;/tr&gt;
+                        &lt;/tbody&gt;
+                    &lt;/table&gt;
+                    &lt;button class="button"&gt;Export Call List&lt;/button&gt;
+                    &lt;button class="button"&gt;View Full Map&lt;/button&gt;
+                &lt;/div&gt;
 
-        <!-- Xactimate Supplement Panel -->
-        <div class="panel">
-            <h2>Xactimate Supplement</h2>
-            <button class="button">Draft New Supplement</button>
+                &lt;div class="panel"&gt;
+                    &lt;h2 data-tip="🌦️ NWS Weather API (free). Highlights severe weather days so you can pre-position crews."&gt;Weather Outlook&lt;/h2&gt;
+                    &lt;div class="weather-days"&gt;
+                        &lt;div class="weather-day"&gt;
+                            Thu&lt;br&gt;☀️ 55°F
+                        &lt;/div&gt;
+                        &lt;div class="weather-day"&gt;
+                            Fri&lt;br&gt;🌤️ 62°F
+                        &lt;/div&gt;
+                        &lt;div class="weather-day severe"&gt;
+                            Sat&lt;br&gt;⛈️ 68°F&lt;br&gt;⚠️ Severe
+                        &lt;/div&gt;
+                        &lt;div class="weather-day"&gt;
+                            Sun&lt;br&gt;☀️ 70°F
+                        &lt;/div&gt;
+                        &lt;div class="weather-day"&gt;
+                            Mon&lt;br&gt;🌤️ 72°F
+                        &lt;/div&gt;
+                        &lt;div class="weather-day"&gt;
+                            Tue&lt;br&gt;☁️ 65°F
+                        &lt;/div&gt;
+                        &lt;div class="weather-day"&gt;
+                            Wed&lt;br&gt;🌧️ 58°F
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
 
-            <h3>Recent Supplements</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Customer</th>
-                        <th>Event Date</th>
-                        <th>Status</th>
-                        <th>Last Updated</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>John Doe (Owasso)</td>
-                        <td>2026-03-04</td>
-                        <td><span class="badge badge-submitted">Submitted</span></td>
-                        <td>2026-03-05</td>
-                    </tr>
-                    <tr>
-                        <td>Jane Smith (Broken Arrow)</td>
-                        <td>2026-03-03</td>
-                        <td><span class="badge badge-approved">Approved</span></td>
-                        <td>2026-03-04</td>
-                    </tr>
-                    <tr>
-                        <td>Bob Johnson (Jenks)</td>
-                        <td>2026-03-02</td>
-                        <td><span class="badge badge-draft">Draft</span></td>
-                        <td>2026-03-03</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+            &lt;!-- Center Column --&gt;
+            &lt;div&gt;
+                &lt;div class="panel"&gt;
+                    &lt;h2 data-tip="📋 AI drafts supplements using Xactimate line codes (RFG TEAR, RFG SHNG, etc.). With Xactimate, reference codes directly. Without it, generates a PDF for insurance."&gt;Xactimate Supplements&lt;/h2&gt;
+                    &lt;div class="pills"&gt;
+                        &lt;span class="pill"&gt;3 Draft&lt;/span&gt;
+                        &lt;span class="pill"&gt;2 Submitted&lt;/span&gt;
+                        &lt;span class="pill"&gt;2 Approved&lt;/span&gt;
+                    &lt;/div&gt;
+                    &lt;div class="pipeline-bar"&gt;
+                        &lt;div class="bar-segment draft"&gt;Draft $98K&lt;/div&gt;
+                        &lt;div class="bar-segment submitted"&gt;Submitted $156K&lt;/div&gt;
+                        &lt;div class="bar-segment approved"&gt;Approved $88K&lt;/div&gt;
+                    &lt;/div&gt;
+                    &lt;table&gt;
+                        &lt;thead&gt;
+                            &lt;tr&gt;
+                                &lt;th&gt;Customer&lt;/th&gt;
+                                &lt;th&gt;Date&lt;/th&gt;
+                                &lt;th&gt;Amount&lt;/th&gt;
+                                &lt;th&gt;Status&lt;/th&gt;
+                            &lt;/tr&gt;
+                        &lt;/thead&gt;
+                        &lt;tbody&gt;
+                            &lt;tr&gt;
+                                &lt;td&gt;John Doe, Owasso&lt;/td&gt;
+                                &lt;td&gt;2026-03-05&lt;/td&gt;
+                                &lt;td&gt;$24,000&lt;/td&gt;
+                                &lt;td&gt;&lt;span class="status-badge badge-draft"&gt;Draft&lt;/span&gt;&lt;/td&gt;
+                            &lt;/tr&gt;
+                            &lt;tr&gt;
+                                &lt;td&gt;Jane Smith, Broken Arrow&lt;/td&gt;
+                                &lt;td&gt;2026-03-04&lt;/td&gt;
+                                &lt;td&gt;$18,500&lt;/td&gt;
+                                &lt;td&gt;&lt;span class="status-badge badge-submitted"&gt;Submitted&lt;/span&gt;&lt;/td&gt;
+                            &lt;/tr&gt;
+                            &lt;tr&gt;
+                                &lt;td&gt;Mike Torres, Jenks&lt;/td&gt;
+                                &lt;td&gt;2026-03-03&lt;/td&gt;
+                                &lt;td&gt;$12,000&lt;/td&gt;
+                                &lt;td&gt;&lt;span class="status-badge badge-approved"&gt;Approved&lt;/span&gt;&lt;/td&gt;
+                            &lt;/tr&gt;
+                            &lt;tr&gt;
+                                &lt;td&gt;Sarah Lee, Sand Springs&lt;/td&gt;
+                                &lt;td&gt;2026-03-02&lt;/td&gt;
+                                &lt;td&gt;$8,200&lt;/td&gt;
+                                &lt;td&gt;&lt;span class="status-badge badge-draft"&gt;Draft&lt;/span&gt;&lt;/td&gt;
+                            &lt;/tr&gt;
+                            &lt;tr&gt;
+                                &lt;td&gt;David Kim, Bixby&lt;/td&gt;
+                                &lt;td&gt;2026-03-01&lt;/td&gt;
+                                &lt;td&gt;$15,700&lt;/td&gt;
+                                &lt;td&gt;&lt;span class="status-badge badge-submitted"&gt;Submitted&lt;/span&gt;&lt;/td&gt;
+                            &lt;/tr&gt;
+                        &lt;/tbody&gt;
+                    &lt;/table&gt;
+                    &lt;button class="button"&gt;Draft New Supplement &lt;span style="background-color: #111; padding: 2px 5px; border-radius: 4px;"&gt;🤖 AI-Powered&lt;/span&gt;&lt;/button&gt;
+                &lt;/div&gt;
 
-        <!-- Existing panel 1 (placeholder) -->
-        <div class="panel">
-            <h2>Current Projects</h2>
-            <p>Project A: In Progress</p>
-            <p>Project B: Pending Start</p>
-        </div>
+                &lt;div class="panel"&gt;
+                    &lt;h2 data-tip="🔄 Integrates with your CRM. Tracks leads from storm alerts, referrals, marketing through inspection → contract → completion."&gt;Lead Pipeline&lt;/h2&gt;
+                    &lt;div class="funnel"&gt;
+                        &lt;div class="funnel-stage new-leads"&gt;New Leads&lt;br&gt;12&lt;/div&gt;
+                        &lt;div class="funnel-stage inspection"&gt;Inspection&lt;br&gt;8&lt;/div&gt;
+                        &lt;div class="funnel-stage contract"&gt;Contract&lt;br&gt;5&lt;/div&gt;
+                        &lt;div class="funnel-stage in-progress"&gt;In Progress&lt;br&gt;14&lt;/div&gt;
+                        &lt;div class="funnel-stage complete"&gt;Complete&lt;br&gt;67&lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
 
-        <!-- Existing panel 2 (placeholder) -->
-        <div class="panel">
-            <h2>Upcoming Inspections</h2>
-            <p>Today: 3 inspections</p>
-            <p>Tomorrow: 2 inspections</p>
-        </div>
+            &lt;!-- Right Column --&gt;
+            &lt;div&gt;
+                &lt;div class="panel"&gt;
+                    &lt;h2 data-tip="👷 Syncs with Jobber, ServiceTitan, or Google Calendar for crew assignments, locations, and material deliveries."&gt;Today's Schedule&lt;/h2&gt;
+                    &lt;div class="schedule-item"&gt;
+                        &lt;span class="dot blue"&gt;&lt;/span&gt;8:00 AM — Mike Torres — 742 N Elm St, Owasso — Hail Inspection
+                    &lt;/div&gt;
+                    &lt;div class="schedule-item"&gt;
+                        &lt;span class="dot orange"&gt;&lt;/span&gt;9:30 AM — Jane Smith — 123 E Main St, Broken Arrow — Roof Install
+                    &lt;/div&gt;
+                    &lt;div class="schedule-item"&gt;
+                        &lt;span class="dot green"&gt;&lt;/span&gt;11:00 AM — John Doe — 456 S River Rd, Jenks — Supplement Meeting
+                    &lt;/div&gt;
+                    &lt;div class="schedule-item"&gt;
+                        &lt;span class="dot blue"&gt;&lt;/span&gt;1:00 PM — Sarah Lee — 789 W Oak Ave, Sand Springs — Inspection
+                    &lt;/div&gt;
+                    &lt;div class="schedule-item"&gt;
+                        &lt;span class="dot orange"&gt;&lt;/span&gt;3:00 PM — David Kim — 101 N Pine St, Bixby — Install
+                    &lt;/div&gt;
+                &lt;/div&gt;
 
-    </div>
+                &lt;div class="panel"&gt;
+                    &lt;h2 data-tip="📍 Real-time crew tracking. Shows current job location, estimated completion, and next assignment."&gt;Crew Status&lt;/h2&gt;
+                    &lt;div class="crew-item"&gt;
+                        &lt;span class="dot green"&gt;&lt;/span&gt;Crew A: Installing in Owasso (ETA 2pm)
+                    &lt;/div&gt;
+                    &lt;div class="crew-item"&gt;
+                        &lt;span class="dot blue"&gt;&lt;/span&gt;Crew B: Inspecting in Broken Arrow (ETA 11am)
+                    &lt;/div&gt;
+                    &lt;div class="crew-item"&gt;
+                        &lt;span class="dot yellow"&gt;&lt;/span&gt;Crew C: En route to Jenks (ETA 10am)
+                    &lt;/div&gt;
+                &lt;/div&gt;
 
-</body>
-</html>
+                &lt;div class="panel satisfaction"&gt;
+                    &lt;h2 data-tip="⭐ Pulls Google Business Profile reviews and post-job NPS surveys. Flags customers who haven't left a review."&gt;Customer Satisfaction&lt;/h2&gt;
+                    Google: 4.8 ⭐ (127 reviews)&lt;br&gt;
+                    NPS Score: 72&lt;br&gt;
+                    3 customers pending review follow-up
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;footer&gt;
+            Roofer Command Center — Powered by US Payments&lt;br&gt;
+            📌 Demo data shown. Your Command Center connects to your real tools and data.
+        &lt;/footer&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
