@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AI Recon — Quick-Start Handout</title>
+<style>
+  @page { margin: 0.5in; size: letter; }
+  @media print {
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .no-print { display: none; }
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    color: #1a1a1a;
+    background: #fff;
+    font-size: 11.5pt;
+    line-height: 1.45;
+    max-width: 8.5in;
+    margin: 0 auto;
+    padding: 0.5in;
+  }
+
+  /* ═══ HEADER ═══ */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 4px solid #dc3545;
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+  }
+
+  .header-left h1 {
+    font-size: 22pt;
+    color: #dc3545;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin-bottom: 2px;
+  }
+
+  .header-left .subtitle {
+    font-size: 11pt;
+    color: #555;
+  }
+
+  .header-right {
+    text-align: right;
+    font-size: 10pt;
+    color: #1a5276;
+    font-weight: 600;
+  }
+
+  .header-right .org {
+    font-size: 13pt;
+    color: #dc3545;
+    font-weight: 800;
+    letter-spacing: 1px;
+  }
+
+  /* ═══ SECTIONS ═══ */
+  h2 {
+    font-size: 13pt;
+    color: #fff;
+    background: #1a5276;
+    padding: 5px 12px;
+    margin: 16px 0 10px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  h2.red { background: #dc3545; }
+
+  h3 {
+    font-size: 11pt;
+    color: #1a5276;
+    margin: 10px 0 4px;
+    font-weight: 700;
+  }
+
+  /* ═══ TOOL GRID ═══ */
+  .tool-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 6px;
+  }
+
+  .tool-card {
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    padding: 10px 12px;
+    background: #fafafa;
+  }
+
+  .tool-card.highlight {
+    border-color: #dc3545;
+    background: #fdf8f8;
+  }
+
+  .tool-card h4 {
+    font-size: 12pt;
+    color: #dc3545;
+    margin-bottom: 2px;
+  }
+
+  .tool-card .url {
+    font-size: 9.5pt;
+    color: #1a5276;
+    font-weight: 600;
+    margin-bottom: 3px;
+  }
+
+  .tool-card p {
+    font-size: 9.5pt;
+    color: #555;
+    margin: 0;
+  }
+
+  /* ═══ ALSO GRID ═══ */
+  .also-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+
+  .also-card {
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 8px 10px;
+    background: #f8f9fa;
+  }
+
+  .also-card h4 {
+    font-size: 10.5pt;
+    color: #333;
+    margin-bottom: 1px;
+  }
+
+  .also-card .url {
+    font-size: 9pt;
+    color: #1a5276;
+  }
+
+  .also-card p {
+    font-size: 9pt;
+    color: #666;
+    margin: 0;
+  }
+
+  /* ═══ PROMPTS ═══ */
+  .prompt-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .prompt-list li {
+    padding: 6px 10px;
+    margin-bottom: 5px;
+    background: #f0f4f8;
+    border-left: 4px solid #dc3545;
+    border-radius: 0 6px 6px 0;
+    font-size: 10.5pt;
+  }
+
+  .prompt-list li strong {
+    color: #dc3545;
+    display: inline;
+    margin-right: 4px;
+  }
+
+  .prompt-list li .prompt-text {
+    font-family: 'Courier New', monospace;
+    color: #333;
+    font-size: 10pt;
+  }
+
+  /* ═══ TIPS ═══ */
+  .tips-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .tip {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    font-size: 10pt;
+    color: #333;
+    padding: 6px 10px;
+    background: #f8f9fa;
+    border-radius: 6px;
+  }
+
+  .tip-icon {
+    font-size: 14pt;
+    flex-shrink: 0;
+  }
+
+  .tip strong { color: #1a5276; }
+
+  /* ═══ RESOURCES ═══ */
+  .resources-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+  }
+
+  .resource-box {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px 12px;
+  }
+
+  .resource-box h4 {
+    font-size: 11pt;
+    color: #1a5276;
+    margin-bottom: 4px;
+  }
+
+  .resource-box ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .resource-box li {
+    font-size: 9.5pt;
+    color: #444;
+    padding: 2px 0;
+  }
+
+  .resource-box li a {
+    color: #1a5276;
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .resource-box .crisis {
+    color: #dc3545;
+    font-weight: 700;
+    font-size: 10.5pt;
+    margin-top: 4px;
+  }
+
+  /* ═══ FOOTER ═══ */
+  .footer {
+    margin-top: 16px;
+    padding-top: 10px;
+    border-top: 2px solid #dc3545;
+    display: flex;
+    justify-content: space-between;
+    font-size: 9.5pt;
+    color: #888;
+  }
+
+  .footer .presenter {
+    color: #333;
+    font-weight: 600;
+  }
+
+  /* ═══ PRINT BUTTON ═══ */
+  .print-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 14pt;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    z-index: 100;
+  }
+
+  .print-btn:hover { background: #c82333; }
+</style>
+</head>
+<body>
+
+<button class="print-btn no-print" onclick="window.print()">🖨️ Print Handout</button>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-left">
+    <h1>AI Recon — Quick-Start Guide</h1>
+    <div class="subtitle">Free AI tools, ready-to-use prompts, and resources for veterans</div>
+  </div>
+  <div class="header-right">
+    <div class="org">★ EAGLE OPS ★</div>
+    eagleops.org<br>
+    Owasso, OK
+  </div>
+</div>
+
+<!-- FREE TOOLS -->
+<h2>🛠️ Free AI Tools — Pick One &amp; Start</h2>
+
+<div class="tool-grid">
+  <div class="tool-card highlight">
+    <h4>ChatGPT</h4>
+    <div class="url">chat.openai.com</div>
+    <p>Best all-around. Start here. Also has a free mobile app with voice chat.</p>
+  </div>
+  <div class="tool-card">
+    <h4>Google Gemini</h4>
+    <div class="url">gemini.google.com</div>
+    <p>Great if you already use Gmail or Google. Good at research &amp; summarizing.</p>
+  </div>
+  <div class="tool-card">
+    <h4>Claude</h4>
+    <div class="url">claude.ai</div>
+    <p>Best for longer writing &amp; careful analysis. Feels more thoughtful.</p>
+  </div>
+</div>
+
+<h3>Also Worth Knowing</h3>
+<div class="also-grid">
+  <div class="also-card">
+    <h4>Microsoft Copilot</h4>
+    <div class="url">copilot.microsoft.com</div>
+    <p>Built into Windows &amp; Edge.</p>
+  </div>
+  <div class="also-card">
+    <h4>Perplexity</h4>
+    <div class="url">perplexity.ai</div>
+    <p>AI search — answers with sources.</p>
+  </div>
+  <div class="also-card">
+    <h4>ChatGPT App</h4>
+    <div class="url">App Store / Google Play</div>
+    <p>Voice mode — talk to it like a call.</p>
+  </div>
+</div>
+
+<!-- PROMPTS -->
+<h2 class="red">🎯 Copy-Paste Prompts — Try These Today</h2>
+
+<ol class="prompt-list">
+  <li><strong>Resume:</strong> <span class="prompt-text">"Write a resume for a veteran with [X years] of military experience transitioning to [civilian job]. Translate military skills into civilian language."</span></li>
+  <li><strong>VA Benefits:</strong> <span class="prompt-text">"Explain VA disability compensation in plain English. What's the process to file a claim?"</span></li>
+  <li><strong>Start a Business:</strong> <span class="prompt-text">"I want to start a [type] business in [city, state]. Give me a simple plan with startup costs and first steps."</span></li>
+  <li><strong>Job Interview:</strong> <span class="prompt-text">"Give me 10 common interview questions for [job title] and help me prepare strong answers."</span></li>
+  <li><strong>Meal Planning:</strong> <span class="prompt-text">"Create a weekly meal plan for [number] people on a $[amount] budget with a shopping list."</span></li>
+  <li><strong>Letter Writing:</strong> <span class="prompt-text">"Help me write a professional letter to [recipient] about [topic]."</span></li>
+</ol>
+
+<!-- PRO TIPS -->
+<h2>💡 Pro Tips — Get Better Answers</h2>
+
+<div class="tips-grid">
+  <div class="tip">
+    <span class="tip-icon">🎯</span>
+    <div><strong>Be specific.</strong> "Help me write a resume for a project management role — I was an E-6 with 8 years in logistics" beats "help me write a resume."</div>
+  </div>
+  <div class="tip">
+    <span class="tip-icon">🔄</span>
+    <div><strong>Iterate.</strong> If the first answer isn't perfect, say "Make it shorter" or "More professional tone" or "Add more detail about X."</div>
+  </div>
+  <div class="tip">
+    <span class="tip-icon">🧒</span>
+    <div><strong>Ask it to simplify.</strong> "Explain this like I'm 10" works great for complex topics like VA benefits or tax rules.</div>
+  </div>
+  <div class="tip">
+    <span class="tip-icon">⚠️</span>
+    <div><strong>Verify everything.</strong> AI sounds confident even when wrong. Always double-check facts, numbers, legal info, and medical advice.</div>
+  </div>
+</div>
+
+<!-- SAFETY -->
+<h2 class="red">🔒 Safety — What NOT to Share with AI</h2>
+<div class="tips-grid">
+  <div class="tip">
+    <span class="tip-icon">🚫</span>
+    <div>Social Security numbers, passwords, PINs, financial account numbers, or medical records. <strong>Treat AI like a helpful stranger — not your doctor or lawyer.</strong></div>
+  </div>
+  <div class="tip">
+    <span class="tip-icon">🛡️</span>
+    <div><strong>Trust but verify.</strong> AI sometimes "hallucinates" — invents facts, fake sources, or wrong numbers. Always confirm important info with official sources.</div>
+  </div>
+</div>
+
+<!-- RESOURCES -->
+<h2>📚 Follow-Up Resources</h2>
+
+<div class="resources-grid">
+  <div class="resource-box">
+    <h4>🦅 Eagle OPS</h4>
+    <ul>
+      <li><a href="https://eagleops.org">eagleops.org</a></li>
+      <li>Rally Points · Firepit Nights</li>
+      <li>Freedom Shoots · Golf Nights</li>
+      <li>918-600-1911</li>
+      <li>302 E. 5th Ave Unit D, Owasso</li>
+    </ul>
+  </div>
+  <div class="resource-box">
+    <h4>🏛️ VA Resources</h4>
+    <ul>
+      <li><a href="https://va.gov">va.gov</a> — Benefits &amp; claims</li>
+      <li><a href="https://ebenefits.va.gov">ebenefits.va.gov</a> — Manage benefits</li>
+      <li class="crisis">Veterans Crisis Line:<br>Dial 988, then press 1</li>
+    </ul>
+  </div>
+  <div class="resource-box">
+    <h4>📖 Learn More About AI</h4>
+    <ul>
+      <li>Ask ChatGPT: <em>"How do I use you effectively?"</em></li>
+      <li>YouTube: "ChatGPT for beginners"</li>
+      <li>Google AI Essentials (free on Coursera)</li>
+    </ul>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div><span class="presenter">Presented by Chuck Conner</span> — Marine Veteran · Construction Business Owner · AI Practitioner</div>
+  <div><em>"The best recon is the kind you act on."</em></div>
+</div>
+
+</body>
+</html>
